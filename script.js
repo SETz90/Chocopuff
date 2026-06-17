@@ -18,7 +18,7 @@
 // Once deployed (Render/Railway/your own server), change this to that URL,
 // e.g. 'https://chocopuff-sms-backend.onrender.com'
 // ==========================================================
-const CHOCOPUFF_SMS_API_BASE = 'http://localhost:4000';
+const CHOCOPUFF_SMS_API_BASE = 'https://chocopuff-backend.onrender.com';
 
 // 1. Initialize global state array from localStorage right away to keep data across pages
 let shoppingCartState = JSON.parse(localStorage.getItem('chocopuff_cart')) || [];
