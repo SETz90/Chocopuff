@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Chocopuff</title>
+    
+    <link rel="icon" type="image/svg+xml" href="gemini-svg (3).svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;600&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <button class="menu-toggle" aria-label="Toggle Navigation Card">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html" class="active">About Us</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="index.html#contact" class="text-link">Contact Us</a>
+                
+                <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Dark Mode" style="background: none; border: none; cursor: pointer; padding: 5px; font-size: 16px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <button id="cart-toggle-btn" class="icon-btn cart-trigger-btn" aria-label="Open Cart">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span id="global-cart-badge" class="cart-badge-count">0</span>
+                </button>
+                
+               <!-- UPDATED SEARCH WRAPPER WITH LIVE DROPDOWN CONTAINER -->
+<div class="search-wrapper" style="display: inline-flex; align-items: center; position: relative; margin-left: 5px;">
+    <input type="text" id="nav-search-input" placeholder="Search flavor..." autocomplete="off" style="width: 0; opacity: 0; transition: all 0.3s ease; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 13px; outline: none; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #000;">
+    <button id="nav-search-btn" class="icon-btn" style="background: none; border: none; cursor: pointer; padding: 5px;"><i class="fas fa-search"></i></button>
+    
+    <!-- This will hold our Amazon-style live image suggestions dropdown -->
+    <div id="search-autocomplete-dropdown" class="search-suggestions-box"></div>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-journey scroll-animate" style="padding: 60px 0 30px 0;">
+            <div class="container">
+                <h1 class="journey-title">OUR <span>JOURNEY</span></h1>
+                <p class="journey-subtitle">CHOCOPUFF WAS ESTABLISHED IN 2026</p>
+                
+                <div class="journey-text">
+                    <p>Our founder started experimenting in the kitchen at the age of 17, constantly chasing the perfect balance between fluffy inside and rich flavors throughout his high school and college years. He successfully perfected the signature marshmallow recipe in late 2024, after which he embarked on a journey to craft this ultimate dessert experience in early 2025. By 2026, he had fulfilled his vision and officially established Chocopuff to share these sweet creations with the world.</p>
+                    
+                    <p>Our professional processes resolutely focus on gourmet, hand-crafted dessert pastries within the confectionery arena, blending premium cocoa with glass-like marshmallow fillings. Adding another layer of expertise to the repertoire, we have mastered the art of texture combinations—ensuring every roll achieves the perfect bite. Our role encompasses diverse responsibilities such as sourcing the finest ingredients, managing daily baking production, organizing flavor profiles, devising unique recipes, and ensuring smooth, fresh delivery to our customers.</p>
+                    
+                    <p>The Chocopuff Team possesses an extensive grasp of the intricacies involved in the baking and design process, dedicated in creation to effective flavor planning and execution.</p>
+                </div>
+
+                <div class="journey-image" style="margin-top: 30px; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1);">
+                    <img src="Coco Chocolate School.jpg" alt="Chocopuff Bakers at work" style="width: 100%; height: auto; display: block;">
+                </div>
+            </div>
+        </section>
+
+        <section class="partners-premium-section scroll-animate">
+            <div class="container">
+                <div class="partners-premium-header">
+                    <h2>OUR TRUSTED <span class="highlight">PARTNERS</span></h2>
+                    <div class="header-divider"></div>
+                    <p>Available at your favorite retail destinations and leading on-demand delivery platforms.</p>
+                </div>
+                
+                <div class="partners-grid-layout">
+                    <div class="partner-card-wrapper">
+                        <div class="partner-card-inner">
+                            <img src="7/11.png" alt="7-Eleven" class="partner-brand-logo">
+                        </div>
+                    </div>
+                    <div class="partner-card-wrapper">
+                        <div class="partner-card-inner">
+                            <img src="foodpanda.png" alt="Foodpanda" class="partner-brand-logo">
+                        </div>
+                    </div>
+                    <div class="partner-card-wrapper">
+                        <div class="partner-card-inner">
+                            <img src="SM.png" alt="SM Supermalls" class="partner-brand-logo">
+                        </div>
+                    </div>
+                    <div class="partner-card-wrapper">
+                        <div class="partner-card-inner">
+                            <img src="Starbucks.png" alt="Starbucks" class="partner-brand-logo">
+                        </div>
+                    </div>
+                    <div class="partner-card-wrapper">
+                        <div class="partner-card-inner">
+                            <img src="grabfood.png" alt="GrabFood" class="partner-brand-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section container scroll-animate" style="padding-bottom: 60px;">
+            <div class="timeline-header">
+                <h2>OUR <span>MILESTONES</span></h2>
+                <p>The key moments, late-night breakthroughs, and sweet victories that shaped Chocopuff.</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-dot"><i class="fas fa-book-open"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Late 2024</span>
+                        <h3>A Sweet Footnote</h3>
+                        <p>The journey began as a passion project in a humble kitchen. While studying classic literature late into the night, our founder started experimenting with marshmallow and cocoa combinations—creating a bold, delicious "footnote to youth" that rewrote the rules of snacking.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"><i class="fas fa-bicycle"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Mid 2025</span>
+                        <h3>The High-Velocity Fuel</h3>
+                        <p>To power through intense morning cycling routes, the kitchen team developed a high-crunch, portable prototype. Tested against the elements on fast downhill sprints, the bar evolved to deliver an instantaneous snap and long-lasting energy.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-dot"><i class="fas fa-award"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Late 2025</span>
+                        <h3>The "With High Honors" Formula</h3>
+                        <p>After endless revisions and strict testing, the signature recipe achieved a flawless 95-point internal sensory rating. The breakthrough earned "High Honors" from early taste-testers, solidifying the base texturing of our three primary flavors.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"><i class="fas fa-bullhorn"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">March 27, 2026</span>
+                        <h3>The Convocation of Taste</h3>
+                        <p>Chocopuff officially stepped into the limelight! Celebrated as our grand convocation day, the brand debuted its polished packaging to the public, setting a new premium standard for timeless flavor execution.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="cart-drawer-overlay" class="cart-overlay-shroud"></div>
+    <div id="cart-sidebar-drawer" class="cart-drawer-container">
+        <div class="drawer-header-row">
+            <h2>Your Cart</h2>
+            <button id="drawer-close-trigger" class="drawer-close-btn" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="drawer-items-list" class="drawer-items-scroll-area">
+            <div class="empty-cart-notice">Your shopping bag is empty.</div>
+        </div>
+        <div class="drawer-footer-lock">
+            <div class="drawer-summary-row">
+                <span class="summary-label">Total</span>
+                <span id="drawer-calculated-total" class="summary-value-price">₱0.00</span>
+            </div>
+            <div class="drawer-action-controls-column">
+                <button class="cart-checkout-btn">Checkout</button>
+                <button id="drawer-continue-btn" class="cart-continue-btn">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal-overlay" class="terms-overlay">
+        <div class="terms-modal-box">
+            <h3>Welcome to Chocopuff Store! 🍪</h3>
+            <p>Before you explore our puff-tastic marshmallow chocolate creations, please take a brief moment to accept our store guidelines.</p>
+            <div class="terms-scroll-viewer">
+                <h4>1. Privacy Policy</h4>
+                <p>Your privacy matters. Chocopuff Store utilizes minor standard local data caches to securely track items added to your shopping cart drawer. We do not track or distribute personal identifier fields.</p>
+                <h4>2. Terms of Agreement</h4>
+                <p>By entering our online shop interface, configuring search criteria, or initializing standard cart workflows, you confirm your acceptance of our premium snack policies. Product costs display accurately in Philippine Peso (₱).</p>
+            </div>
+            <div class="terms-action-row">
+                <button id="terms-accept-btn" class="terms-agree-btn">I Agree & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="scroll-animate">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Chocopuff Logo">
+                    <p>Chocopuff is a premium brand and integrated manufacturing, redefining snacking with innovation, quality, and a passion for flavor.</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" style="color: #FF0000;"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61565694604029" target="_blank" style="color: #1877F2;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@chewychocomallow" target="_blank" style="color: #000000;"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/chewychocomallow?igsh=dWx6NGt4c3c1aWN0" target="_blank" style="color: #E4405F;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/639191234567" target="_blank" style="color: #25D366;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Product</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Mail:<br><a href="mailto:info@chocopuff-brand.com">info@chocopuff-brand.com</a></li>
+                        <li>Phone:<br>+639191234567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p><i class="fas fa-cookie"></i> © 2026 Chocopuff Agency. All rights reserved.</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="javascript:void(0);" id="footer-privacy-link">Privacy Policy</a>
+                    <a href="javascript:void(0);" id="footer-terms-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

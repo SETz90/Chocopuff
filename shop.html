@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Chocopuff Store</title>
+
+    <link rel="icon" type="image/svg+xml" href="gemini-svg (3).svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;600&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <button class="menu-toggle" aria-label="Toggle Navigation Card">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html" class="active">Shop</a>
+                <a href="about.html">About Us</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="index.html#contact" class="text-link">Contact Us</a>
+                
+                <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Dark Mode" style="background: none; border: none; cursor: pointer; padding: 5px; font-size: 16px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <button id="cart-toggle-btn" class="icon-btn cart-trigger-btn" aria-label="Open Cart">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span id="global-cart-badge" class="cart-badge-count">0</span>
+                </button>
+                
+               <!-- UPDATED SEARCH WRAPPER WITH LIVE DROPDOWN CONTAINER -->
+<div class="search-wrapper" style="display: inline-flex; align-items: center; position: relative; margin-left: 5px;">
+    <input type="text" id="nav-search-input" placeholder="Search flavor..." autocomplete="off" style="width: 0; opacity: 0; transition: all 0.3s ease; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 13px; outline: none; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #000;">
+    <button id="nav-search-btn" class="icon-btn" style="background: none; border: none; cursor: pointer; padding: 5px;"><i class="fas fa-search"></i></button>
+    
+    <!-- This will hold our Amazon-style live image suggestions dropdown -->
+    <div id="search-autocomplete-dropdown" class="search-suggestions-box"></div>
+</div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-page-wrapper container scroll-animate">
+            
+            <div class="product-hero-banner shop-hero-split">
+                <div class="hero-banner-content shop-hero-text">
+                    <span class="brand-tagline">PUFF LIKE CHOCO</span>
+                    <h1>Chocopuff</h1>
+                    <h2>Discover our irresistible and wide range from the Chocopuff brand.</h2>
+                    <p>Indulge in the perfect harmony of textures in every bite. Experience the soft, pillowy marshmallow center wrapped in premium chocolate. Discover a snack that redefines your moments of joy.</p>
+                </div>
+                <div class="hero-banner-image-wrapper shop-hero-image">
+                    <div class="circle-bg-mask shop-hero-circle">
+                        <img src="3bar3.png" alt="Chocopuff Collection Range">
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase-container">
+                <div class="showcase-header">
+                    <h2>Product <span>Showcase</span></h2>
+                </div>
+
+                <div class="product-showcase-grid">
+                    
+                    <div class="premium-product-card">
+                        <span class="card-badge bestseller">Bestseller</span>
+                        
+                        <a href="product-berry.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Blueberry.png" alt="Choc-O-Berry Fusion">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Berry Burst</span>
+                                <h3>Chocopuff Berry</h3>
+                                <p class="product-short-description">A perfect balance of tangy, wild blueberries and smooth milk chocolate surrounding our cloud-like marshmallow core.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱85.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge premium">New</span>
+                        
+                        <a href="product-sprinkle.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Sprinkles.png" alt="Sprinkle Surprise">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Rainbow Sprinkles</span>
+                                <h3>Chocopuff Sprinkles</h3>
+                                <p class="product-short-description">Vibrant confectionery colors and a delightful, rich chocomallow fudge crunch hidden inside every single bite.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱85.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge special">Tropical</span>
+                        
+                        <a href="product-coconut.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Coconut.png" alt="Chocopuff Coconut">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Coconut Crunch</span>
+                                <h3>Chocopuff Coconut</h3>
+                                <p class="product-short-description">A tropical coconut creaminess experience wrapped tightly in rich premium chocolate fudge and biscuit shell crisps.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱90.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge premium">Premium</span>
+                        
+                        <a href="product-matcha.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Matcha.png" alt="Chocopuff Matcha">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Zen Earth</span>
+                                <h3>Chocopuff Matcha</h3>
+                                <p class="product-short-description">An elegant blend of authentic Japanese matcha green tea and velvety white chocolate over a soft, pillowy core.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱90.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge bestseller">Popular</span>
+                        
+                        <a href="product-caramel.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Caramel.png" alt="Chocopuff Caramel">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Sweet & Salty</span>
+                                <h3>Chocopuff Caramel</h3>
+                                <p class="product-short-description">Rich, slow-cooked golden caramel with a delicate touch of sea salt, enrobed completely in smooth milk chocolate.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱85.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge special">Intense</span>
+                        
+                        <a href="product-mint.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Mint.png" alt="Chocopuff Mint">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Cool Refresh</span>
+                                <h3>Chocopuff Mint</h3>
+                                <p class="product-short-description">Decadent 70% dark chocolate shell infused with refreshing peppermint crystals for an ultra-crisp, snappy bite.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱95.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge special">Exotic</span>
+                        
+                        <a href="product-mango.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Mango.png" alt="Chocopuff Mango">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Exotic Twist</span>
+                                <h3>Chocopuff Mango</h3>
+                                <p class="product-short-description">Sun-ripened Philippine mango bites swirled gently into a luscious white chocolate fudge coating.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱90.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge premium">Luxury</span>
+                        
+                        <a href="product-hazelnut.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Hazelnut.png" alt="Chocopuff Hazelnut">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Nutty Velvet</span>
+                                <h3>Chocopuff Hazelnut</h3>
+                                <p class="product-short-description">Perfectly roasted, crushed hazelnuts suspended beautifully inside a dense blanket of chocolate gianduja.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱85.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-product-card">
+                        <span class="card-badge bestseller">Classic</span>
+                        
+                        <a href="product-cookies.html" class="product-detail-link-wrapper">
+                            <div class="card-image-holder">
+                                <img src="Cookies.png" alt="Chocopuff Cookies">
+                            </div>
+                            <div class="card-details-box">
+                                <span class="product-category-label">Cookies 'N Velvet</span>
+                                <h3>Chocopuff Cookies</h3>
+                                <p class="product-short-description">Crunchy dark cocoa cookie bits embedded into a sweet, melt-in-your-mouth alpine white chocolate shell.</p>
+                            </div>
+                        </a>
+                        
+                        <div class="card-purchase-row">
+                            <span class="product-price">₱85.00</span>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="cart-drawer-overlay" class="cart-overlay-shroud"></div>
+
+    <div id="cart-sidebar-drawer" class="cart-drawer-container">
+        <div class="drawer-header-row">
+            <h2>Your Cart</h2>
+            <button id="drawer-close-trigger" class="drawer-close-btn" aria-label="Close Cart">&times;</button>
+        </div>
+
+        <div id="drawer-items-list" class="drawer-items-scroll-area">
+            <div class="empty-cart-notice">Your shopping bag is empty.</div>
+        </div>
+
+        <div class="drawer-footer-lock">
+            <div class="drawer-summary-row">
+                <span class="summary-label">Total</span>
+                <span id="drawer-calculated-total" class="summary-value-price">₱0.00</span>
+            </div>
+            <div class="drawer-action-controls-column">
+                <button class="cart-checkout-btn">Checkout</button>
+                <button id="drawer-continue-btn" class="cart-continue-btn">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal-overlay" class="terms-overlay">
+        <div class="terms-modal-box">
+            <h3>Welcome to Chocopuff Store! 🍪</h3>
+            <p>Before you explore our puff-tastic marshmallow chocolate creations, please take a brief moment to accept our store guidelines.</p>
+            <div class="terms-scroll-viewer">
+                <h4>1. Privacy Policy</h4>
+                <p>Your privacy matters. Chocopuff Store utilizes minor standard local data caches to securely track items added to your shopping cart drawer. We do not track or distribute personal identifier fields.</p>
+                <h4>2. Terms of Agreement</h4>
+                <p>By entering our online shop interface, configuring search criteria, or initializing standard cart workflows, you confirm your acceptance of our premium snack policies. Product costs display accurately in Philippine Peso (₱).</p>
+            </div>
+            <div class="terms-action-row">
+                <button id="terms-accept-btn" class="terms-agree-btn">I Agree & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="scroll-animate">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Chocopuff Logo">
+                    <p>Chocopuff is a premium brand and integrated manufacturing, redefining snacking with innovation, quality, and a passion for flavor.</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" style="color: #FF0000;"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61565694604029" style="color: #1877F2;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@chewychocomallow" style="color: #000000;"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/chewychocomallow?igsh=dWx6NGt4c3c1aWN0" style="color: #E4405F;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/639191234567" style="color: #25D366;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Product</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Mail:<br><a href="mailto:info@chocopuff-brand.com">info@chocopuff-brand.com</a></li>
+                        <li>Phone:<br>+639191234567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p><i class="fas fa-cookie"></i> © 2026 Chocopuff Agency. All rights reserved.</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="javascript:void(0);" id="footer-privacy-link">Privacy Policy</a>
+                    <a href="javascript:void(0);" id="footer-terms-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

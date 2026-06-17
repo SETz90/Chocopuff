@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Outer Dark Chocolate Ring (from your logo) -->
+  <circle cx="16" cy="16" r="15" fill="#2b1a0a" />
+  
+  <!-- Inner Clean White Badge Core -->
+  <circle cx="16" cy="16" r="10.5" fill="#ffffff" />
+  
+  <!-- The Cute Marshmallow Puff Body -->
+  <rect x="10" y="12" width="12" height="11" rx="4" fill="#ffffff" />
+  <!-- Pink Lower Shading Layer -->
+  <path d="M10,19.5 C10,21.5 12,23 14,23 L18,23 C20,23 22,21.5 22,19.5 Z" fill="#fca1a1" />
+
+  <!-- Premium Chocolate Drip on Head -->
+  <path d="M10,12 L22,12 L22,15.5 C20.5,16.5 19.5,15 18.5,16 C17.5,17 16.5,15 15.5,16 C14.5,17 13.5,15 12.5,16 C11.5,17 10.5,15.5 10,14.5 Z" fill="#2b1a0a" />
+
+  <!-- Tiny Festive Sprinkles (Blue, Pink, Orange) -->
+  <circle cx="13" cy="13.5" r="0.7" fill="#3bc4f0" />
+  <circle cx="16" cy="13.2" r="0.7" fill="#f5427b" />
+  <circle cx="19" cy="13.5" r="0.7" fill="#ff9124" />
+
+  <!-- Adorable Mascot Face Details -->
+  <!-- Happy Eyes -->
+  <circle cx="13.5" cy="18.5" r="1" fill="#2b1a0a" />
+  <circle cx="18.5" cy="18.5" r="1" fill="#2b1a0a" />
+  
+  <!-- Rosy Blushing Cheeks -->
+  <circle cx="11.5" cy="19.5" r="1" fill="#ff6b8b" opacity="0.6" />
+  <circle cx="20.5" cy="19.5" r="1" fill="#ff6b8b" opacity="0.6" />
+  
+  <!-- Shy Smile -->
+  <path d="M15,20 Q16,21 17,20" fill="none" stroke="#2b1a0a" stroke-width="0.8" stroke-linecap="round" />
+</svg>

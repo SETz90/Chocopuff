@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="gemini-svg (3).svg">
+    <title>Chocopuff Matcha | Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="original-store-bg">
+    <header>
+        <div class="container nav-container">
+            <button class="menu-toggle" aria-label="Toggle Navigation Card"><span></span><span></span><span></span></button>
+            <nav class="nav-links"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About Us</a></nav>
+           
+            <div class="nav-actions">
+    <a href="index.html#contact" class="text-link">Contact Us</a>
+    
+    <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Dark Mode" style="background: none; border: none; cursor: pointer; padding: 5px; font-size: 16px;">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <button id="cart-toggle-btn" class="icon-btn cart-trigger-btn" aria-label="Open Cart">
+        <i class="fas fa-bag-shopping"></i>
+        <span id="global-cart-badge" class="cart-badge-count">0</span>
+    </button>
+    
+    <!-- UPDATED SEARCH WRAPPER WITH LIVE DROPDOWN CONTAINER -->
+<div class="search-wrapper" style="display: inline-flex; align-items: center; position: relative; margin-left: 5px;">
+    <input type="text" id="nav-search-input" placeholder="Search flavor..." autocomplete="off" style="width: 0; opacity: 0; transition: all 0.3s ease; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 13px; outline: none; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #000;">
+    <button id="nav-search-btn" class="icon-btn" style="background: none; border: none; cursor: pointer; padding: 5px;"><i class="fas fa-search"></i></button>
+    
+    <!-- This will hold our Amazon-style live image suggestions dropdown -->
+    <div id="search-autocomplete-dropdown" class="search-suggestions-box"></div>
+</div>
+</div>
+        </div>
+</div>
+        </div>
+    </header>
+    <main class="container original-detail-wrapper" id="product-showcase-panel" data-id="chocopuff-matcha" data-title="Chocopuff Matcha" data-subtitle="Zen Earth" data-price="90.00" data-img="Matcha.png">
+        <section class="flat-product-split">
+            <div class="flat-image-container"><img src="Matcha.png" alt="Chocopuff Matcha Bar"></div>
+            <div class="flat-info-container">
+                <span class="flat-category-tag">Zen Earth</span>
+                <h1 class="flat-product-title">Chocopuff Matcha</h1>
+                <p class="flat-product-description">An elegant blend of authentic Japanese matcha green tea and velvety white chocolate over a soft, pillowy core.</p>
+                <div class="flat-specs-table">
+                    <div class="table-row"><span class="label">Weight</span><span class="value">120g / pack</span></div>
+                    <div class="table-row"><span class="label">Pieces</span><span class="value">~18 pieces</span></div>
+                    <div class="table-row"><span class="label">Shelf life</span><span class="value">12 months</span></div>
+                    <div class="table-row"><span class="label">Origin</span><span class="value">Japan / Philippines</span></div>
+                    <div class="table-row price-row"><span class="label">Price</span><span class="value-price">₱90.00</span></div>
+                </div>
+                <div class="sales-booster-box">
+                    <div class="stock-urgency-bar"><i class="fas fa-fire animate-pulse"></i> Only <strong>4 items left</strong> in stock!</div>
+                </div>
+                <div class="flat-action-button-row">
+                    <button class="action-btn-primary" id="add-to-cart-trigger">Add to Cart</button>
+                    <a href="shop.html" class="action-btn-secondary">Back to Shop</a>
+                </div>
+            </div>
+        </section>
+         <section class="reviews-grid-aligned-box">
+    
+    <div class="reviews-summary-card">
+        <h2 class="reviews-heading">Customer Reviews</h2>
+        <div class="rating-aggregate-row">
+            <span id="average-rating-num" class="avg-number">5.0</span>
+            <div class="stars-column">
+                <div class="star-display-row" id="average-stars-display">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span id="review-count-label" class="count-text">(Based on 2 reviews)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews-feed-list" id="reviews-feed-container">
+        </div>
+
+    <form class="write-review-form" id="new-review-submission-form">
+        <h3>Share your thoughts</h3>
+        
+        <div class="star-input-group">
+            <label>Your Rating: </label>
+            <div class="star-rating-selector">
+                <input type="radio" id="star5" name="review_rating" value="5" checked><label for="star5" class="fas fa-star"></label>
+                <input type="radio" id="star4" name="review_rating" value="4"><label for="star4" class="fas fa-star"></label>
+                <input type="radio" id="star3" name="review_rating" value="3"><label for="star3" class="fas fa-star"></label>
+                <input type="radio" id="star2" name="review_rating" value="2"><label for="star2" class="fas fa-star"></label>
+                <input type="radio" id="star1" name="review_rating" value="1"><label for="star1" class="fas fa-star"></label>
+            </div>
+        </div>
+
+        <div class="review-form-field">
+            <input type="text" id="review-author-name" placeholder="Your Name" required>
+        </div>
+        
+        <div class="review-form-field">
+            <textarea id="review-comment-body" placeholder="What did you think of the crunch, flavor, and texture?" rows="3" required></textarea>
+        </div>
+<!-- NEW: OPTIONAL CODES FREE IMAGE URL ADDRESS LINK ENTRY BOX -->
+                <div class="review-form-field" style="margin-top: 1rem;">
+                    <label for="review-photo-url" style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 0.5rem; opacity: 0.9;">
+                        <i class="fas fa-camera" style="margin-right: 0.3rem; color: #ffb300;"></i> Share proof of arrival! (Optional)
+                    </label>
+                    <input type="url" id="review-photo-url" placeholder="Paste an image address link" style="font-family: inherit; font-size: 13px; color: inherit; width: 100%;">
+                </div>
+        <button type="submit" class="submit-review-action-btn">Submit Review</button>
+    </form>
+</section>
+            
+        </section>
+    </main>
+    <div id="cart-drawer-overlay" class="cart-overlay-shroud"></div>
+    <div id="cart-sidebar-drawer" class="cart-drawer-container">
+        <div class="drawer-header-row"><h2>Your Cart</h2><button id="drawer-close-trigger" class="drawer-close-btn">&times;</button></div>
+        <div id="drawer-items-list" class="drawer-items-scroll-area"><div class="empty-cart-notice">Your shopping bag is empty.</div></div>
+        <div class="drawer-footer-lock">
+            <div class="drawer-summary-row"><span class="summary-label">Total</span><span id="drawer-calculated-total" class="summary-value-price">₱0.00</span></div>
+            <div class="drawer-action-controls-column"><button class="cart-checkout-btn">Checkout</button><button id="drawer-continue-btn" class="cart-continue-btn">Continue Shopping</button></div>
+        </div>
+    </div>
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

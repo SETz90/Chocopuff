@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="gemini-svg (3).svg">
+    <title>Chocopuff | Crunch it Cool</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;600&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <button class="menu-toggle" aria-label="Toggle Navigation Card">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About Us</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="index.html#contact" class="text-link">Contact Us</a>
+                
+                <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Dark Mode" style="background: none; border: none; cursor: pointer; padding: 5px; font-size: 16px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <button id="cart-toggle-btn" class="icon-btn cart-trigger-btn" aria-label="Open Cart">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span id="global-cart-badge" class="cart-badge-count">0</span>
+                </button>
+                
+                <!-- UPDATED SEARCH WRAPPER WITH LIVE DROPDOWN CONTAINER -->
+<div class="search-wrapper" style="display: inline-flex; align-items: center; position: relative; margin-left: 5px;">
+    <input type="text" id="nav-search-input" placeholder="Search flavor..." autocomplete="off" style="width: 0; opacity: 0; transition: all 0.3s ease; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 13px; outline: none; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #000;">
+    <button id="nav-search-btn" class="icon-btn" style="background: none; border: none; cursor: pointer; padding: 5px;"><i class="fas fa-search"></i></button>
+    
+    <!-- This will hold our Amazon-style live image suggestions dropdown -->
+    <div id="search-autocomplete-dropdown" class="search-suggestions-box"></div>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-carousel-wrapper">
+            <div class="carousel-track" id="hero-carousel-track">
+                
+                <a href="shop.html" class="carousel-slide" style="background-color: #ccb7a3;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>CRUNCH IT COOL: COCONUT FUDGE</h2>
+                        <p>Unlock the ultimate chocolate escape with tropical coconut layers. Every bite offers a satisfying crunch combined with a rich, velvety core. It is the perfect refreshing treat for any time of day.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Coconut.png" alt="Chocopuff Coconut" class="floating-pack">
+                    </div>
+                </a>
+
+                <a href="shop.html" class="carousel-slide" style="background-color: #beaa96;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>SAY IT WITH SPRINKLES!</h2>
+                        <p>Celebrate every sweet moment with a vibrant snap of colorful sprinkles. These festive toppings are perfectly folded into our deep marshmallow fudge center. Kids and adults alike will love this playful, joyous crunch.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Sprinkles.png" alt="Chocopuff Sprinkles" class="floating-pack">
+                    </div>
+                </a>
+
+                <a href="shop.html" class="carousel-slide" style="background-color: #aaba9e;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>EARTHY MATCHA INFUSION</h2>
+                        <p>Experience an authentic, premium grade green tea profile balanced with sweet white chocolate crisp hulls. The earthy notes blend seamlessly with our signature fluffy marshmallow filling. It delivers a uniquely sophisticated taste that calms your senses.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Matcha.png" alt="Chocopuff Matcha" class="floating-pack">
+                    </div>
+                </a>
+
+                <a href="shop.html" class="carousel-slide" style="background-color: #cca483;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>SOULFUL VELVET CARAMEL</h2>
+                        <p>Indulge in a rich, slow-cooked golden caramel core tucked inside a premium chocolate snap shell. The buttery sweetness stretches beautifully with every single bite you take. It is a luxurious escape designed for true caramel connoisseurs.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Caramel.png" alt="Chocopuff Caramel" class="floating-pack">
+                    </div>
+                </a>
+
+                <a href="product-mint.html" class="carousel-slide" style="background-color: #9ebcb3;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>COOL PEPPERMINT CRUSH</h2>
+                        <p>Enjoy an icy, refreshing burst of real peppermint matching our dark chocolate crunch layers. This cooling sensation perfectly contrasts with the rich sweetness of the marshmallow base. It leaves your palate feeling incredibly clean and deeply satisfied.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Mint.png" alt="Chocopuff Mint" class="floating-pack">
+                    </div>
+                </a>
+
+                <a href="shop.html" class="carousel-slide" style="background-color: #bfaea3;">
+                    <div class="slide-content">
+                        <span class="puffs-badge">PUFF LIKE CHOCO</span>
+                        <h2>DREAMY COOKIES & CREAM</h2>
+                        <p>Dive into a dreamy blend of crushed chocolate cookie bits embedded inside a velvety cream filling. The nostalgic flavor combination brings a familiar comfort with a premium artisanal twist. It is an absolute must-try for cookie lovers everywhere.</p>
+                        <span class="mock-btn">Shop Now</span>
+                    </div>
+                    <div class="slide-image-zone">
+                        <img src="Cookies.png" alt="Chocopuff Cookies" class="floating-pack">
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="carousel-indicators" id="carousel-indicators-box"></div>
+        </section>
+
+        <section class="split-section reverse">
+            <div class="container scroll-animate" style="padding: 0;">
+                <div class="split-content">
+                    <span class="tagline">Puff like Choco</span>
+                    <h2>BITE, SNAP, SHARE:<br>PUFF-TASTIC MOMENTS AWAIT</h2>
+                    <p>Discover your next obsession with our three distinct flavor creations. From the tropical smoothness of Coconut & Chocomallow Fudge, to the playful crunch of our multi-colored Sprinkles, and the rich, fruity indulgence of Blueberry & Choco Fudge—each bar is meticulously crafted with a soft, pillowy core and a premium chocolate blanket.</p>
+                    <button class="shop-now-btn" onclick="window.location.href='shop.html';" style="background-color: #1a1a1a; color: #ffffff; padding: 12px 32px; border-radius: 50px; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; display: inline-block; width: fit-content;">Shop Now</button>
+                </div>
+                <div class="split-image">
+                    <img src="3bar3.png" alt="Three Chocopuff Wrappers">
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section scroll-animate" id="contact">
+            <div class="container">
+                <div class="contact-header">
+                    <h2>Contact Us</h2>
+                    <p>Got questions? We've got answers.</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>General Inquiries</h3>
+                        <p>123 Sweet Street, Dessert City, DC 12345</p>
+                        <p><strong>0919 123 4567</strong><br>info@chocopuff-brand.com</p>
+                        <p>For business inquiries, catering, or general questions, please feel free to drop us a line. We are always happy to connect and assist you with all your Chocopuff needs!</p>
+                    </div>
+
+                    <div class="contact-form-wrapper">
+                        <form action="https://formspree.io/f/mqeoynzy" method="POST">
+                            
+                            <div class="form-field-group">
+                                <label>Your Name</label>
+                                <input type="text" name="name"  required>
+                            </div>
+
+                            <div class="form-field-group">
+                                <label>Email Address</label>
+                                <input type="email" name="email" required>
+                            </div>
+
+                            <div class="form-field-group">
+                                <label>Subject</label>
+                                <select name="subject">
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Order Support">Order Tracking & Status</option>
+                                </select>
+                            </div>
+
+                            <div class="form-field-group">
+                                <label>Message</label>
+                                <textarea name="message" placeholder="Write your sweet message here..." required></textarea>
+                            </div>
+
+                            <input type="text" name="_gotcha" style="display:none">
+
+                            <button type="submit" class="contact-submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="cart-drawer-overlay" class="cart-overlay-shroud"></div>
+    <div id="cart-sidebar-drawer" class="cart-drawer-container">
+        <div class="drawer-header-row">
+            <h2>Your Cart</h2>
+            <button id="drawer-close-trigger" class="drawer-close-btn" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="drawer-items-list" class="drawer-items-scroll-area">
+            <div class="empty-cart-notice">Your shopping bag is empty.</div>
+        </div>
+        <div class="drawer-footer-lock">
+            <div class="drawer-summary-row">
+                <span class="summary-label">Total</span>
+                <span id="drawer-calculated-total" class="summary-value-price">₱0.00</span>
+            </div>
+            <div class="drawer-action-controls-column">
+                <button class="cart-checkout-btn">Checkout</button>
+                <button id="drawer-continue-btn" class="cart-continue-btn">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal-overlay" class="terms-overlay">
+        <div class="terms-modal-box">
+            <h3>Welcome to Chocopuff Store! 🍪</h3>
+            <p>Before you explore our puff-tastic marshmallow chocolate creations, please take a brief moment to accept our store guidelines.</p>
+            <div class="terms-scroll-viewer">
+                <h4>1. Privacy Policy</h4>
+                <p>Your privacy matters. Chocopuff Store utilizes minor standard local data caches to securely track items added to your shopping cart drawer. We do not track or distribute personal identifier fields.</p>
+                <h4>2. Terms of Agreement</h4>
+                <p>By entering our online shop interface, configuring search criteria, or initializing standard cart workflows, you confirm your acceptance of our premium snack policies. Product costs display accurately in Philippine Peso (₱).</p>
+            </div>
+            <div class="terms-action-row">
+                <button id="terms-accept-btn" class="terms-agree-btn">I Agree & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="scroll-animate">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Chocopuff Logo">
+                    <p>Chocopuff is a premium brand and integrated manufacturing, redefining snacking with innovation, quality, and a passion for flavor.</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" style="color: #FF0000;"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61565694604029" style="color: #1877F2;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@chewychocomallow" style="color: #000000;"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/chewychocomallow?igsh=dWx6NGt4c3c1aWN0" style="color: #E4405F;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/639191234567" style="color: #25D366;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Product</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Mail:<br><a href="mailto:info@chocopuff-brand.com">info@chocopuff-brand.com</a></li>
+                        <li>Phone:<br>+639191234567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p><i class="fas fa-cookie"></i> © 2026 Chocopuff Agency. All rights reserved.</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#" id="footer-privacy-link">Privacy Policy</a>
+                    <a href="#" id="footer-terms-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
