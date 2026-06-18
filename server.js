@@ -8,7 +8,7 @@
  * "your order is preparing".
  * 3. After OUT_FOR_DELIVERY_DELAY_MS (default 60000 = 1 minute), we
  * text the same number again: "your order is out for delivery".
- */
+ * */
 
 require('dotenv').config();
 const express = require('express');
@@ -19,19 +19,16 @@ const app = express();
 
 const PORT             = process.env.PORT || 4000;
 const DELAY_MS          = parseInt(process.env.OUT_FOR_DELIVERY_DELAY_MS || '60000', 10);
-const ALLOWED_ORIGIN    = process.env.ALLOWED_ORIGIN || '*';
 
-const express = require('express');
-const cors = require('cors');
-const app = express();
-
-// Change your cors setup to this:
-app.use(cors({
-    origin: 'https://chocopuff.netlify.app', // Allows your exact live frontend
+// Use the explicit Netlify URL as the origin, fall back to ALLOWED_ORIGIN if needed
+const corsOptions = {
+    origin: 'https://chocopuff.netlify.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // orderId -> order record stored safely in-memory
@@ -128,6 +125,6 @@ app.get('/api/orders/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Chocopuff SMS backend running on http://localhost:${PORT}`);
+    console.log(`Chocopuff SMS backend running on port ${PORT}`);
     console.log(`"Out for delivery" follow-up text fires ${DELAY_MS}ms after each order.`);
 });
