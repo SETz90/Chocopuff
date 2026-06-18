@@ -21,7 +21,17 @@ const PORT             = process.env.PORT || 4000;
 const DELAY_MS          = parseInt(process.env.OUT_FOR_DELIVERY_DELAY_MS || '60000', 10);
 const ALLOWED_ORIGIN    = process.env.ALLOWED_ORIGIN || '*';
 
-app.use(cors({ origin: ALLOWED_ORIGIN }));
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// Change your cors setup to this:
+app.use(cors({
+    origin: 'https://chocopuff.netlify.app', // Allows your exact live frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // orderId -> order record stored safely in-memory
