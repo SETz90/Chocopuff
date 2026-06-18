@@ -1,37 +1,30 @@
 /**
- * sms.js — Chocopuff SMS Integration (Infobip REST version)
+ * sms.js — Chocopuff Tracking Integration (Discord Webhook Edition)
+ * Bypasses international SMS blocks completely, delivering free, instant tracking updates.
  */
-const https = require('https'); // Use native HTTPS module so it never breaks on older Node versions
+const https = require('https');
 
 async function sendSMS(number, message) {
-  const apiKey = process.env.INFOBIP_API_KEY;
-  const baseUrl = process.env.INFOBIP_BASE_URL;
-    if (!apiKey || !baseUrl) {
-        throw new Error('SMS Credentials missing from .env file.');
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    
+    if (!webhookUrl) {
+        throw new Error('Discord Webhook credentials missing from environment variables.');
     }
 
-    // Convert local PH numbers format (09XXXXXXXXX) to global standard (639XXXXXXXXX)
-    let formattedNumber = String(number).trim();
-    if (formattedNumber.startsWith('0')) {
-        formattedNumber = '63' + formattedNumber.slice(1);
-    }
+    // Parse the full webhook URL into parts that the native https module can read
+    const url = new URL(webhookUrl);
 
+    // Format the alert text beautifully using Discord Markdown formatting
     const payload = JSON.stringify({
-        messages: [{
-            destinations: [{ to: formattedNumber }],
-            from: "Chocopuff",
-            text: message
-        }]
+        content: `🔔 **Chocopuff Order Update**\n📱 *Recipient:* \`${number}\`\n💬 *Message:* ${message}`
     });
 
     const options = {
-        hostname: baseUrl,
-        path: '/sms/2/text/advanced',
+        hostname: url.hostname,
+        path: url.pathname + url.search,
         method: 'POST',
         headers: {
-            'Authorization': `App ${apiKey}`,
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
             'Content-Length': Buffer.byteLength(payload)
         }
     };
@@ -42,9 +35,10 @@ async function sendSMS(number, message) {
             res.on('data', (chunk) => body += chunk);
             res.on('end', () => {
                 if (res.statusCode >= 200 && res.statusCode < 300) {
-                    resolve(JSON.parse(body));
+                    console.log(`[Webhook] Tracking alert successfully routed to Discord.`);
+                    resolve(body);
                 } else {
-                    reject(new Error(`Infobip API error (HTTP ${res.statusCode}): ${body}`));
+                    reject(new Error(`Discord API error (HTTP ${res.statusCode}): ${body}`));
                 }
             });
         });
