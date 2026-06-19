@@ -29,25 +29,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// In-memory data map initialized clean for new customer entries
 const orders = new Map();
-
-// Insert mock data for demonstration if empty so your professor instantly sees beautiful entries
-orders.set("CPEXAMPL1", {
-    id: "CPEXAMPL1",
-    name: "Professor James Hilado",
-    phone: "09171234567",
-    address: "University Hall, Room 302",
-    city: "General Santos City",
-    zip: "9500",
-    paymentMethod: "Cash on Delivery",
-    items: [
-        { title: "Classic Chocopuff Premium", quantity: 2, price: 150 },
-        { title: "Marshmallow Cream Delight", quantity: 1, price: 175 }
-    ],
-    total: 475,
-    status: "preparing",
-    createdAt: new Date().toISOString()
-});
 
 function generateOrderId() {
     const stamp  = Date.now().toString(36).toUpperCase();
