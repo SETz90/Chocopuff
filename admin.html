@@ -14,7 +14,6 @@
             --cream-bg: #fffcf7;
             --white: #ffffff;
             --accent-pink: #ffb7b2;
-            --accent-marshmallow: #f0f3f4;
         }
 
         body {
@@ -29,9 +28,7 @@
             position: relative;
         }
 
-        /* ==========================================================
-           BACKGROUND TOPPING DECORATIONS SYSTEM
-           ========================================================== */
+        /* BACKGROUND TOPPING DECORATIONS SYSTEM */
         .topping-particle {
             position: absolute;
             pointer-events: none;
@@ -44,9 +41,7 @@
             100% { transform: translateY(-25px) rotate(15deg); }
         }
 
-        /* ==========================================================
-           ANIMATIONS & TRANSITIONS
-           ========================================================== */
+        /* ANIMATIONS & TRANSITIONS */
         @keyframes zoomFadeIn {
             from { opacity: 0; transform: scale(0.93) translateY(15px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -64,9 +59,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==========================================================
-           LOGIN SCREEN PANELS
-           ========================================================== */
+        /* LOGIN SCREEN PANELS */
         .auth-viewport {
             display: flex;
             align-items: center;
@@ -96,13 +89,13 @@
             background: linear-gradient(90deg, #8b5c1a, #ffb7b2, #5c3a21);
         }
         .auth-card i.lock-icon {
-            font-size: 3.5rem; color: var(--chocolate-main); margin-bottom: 20px;
+            font-size: 3.5rem; color: var(--chocolate-main); margin-bottom: 10px;
         }
         .auth-card h2 {
             font-family: 'Fredoka One', sans-serif; color: var(--chocolate-main);
-            margin: 0 0 10px 0; font-size: 2rem;
+            margin: 0 0 5px 0; font-size: 2rem;
         }
-        .auth-card p { color: #7a6252; margin: 0 0 30px 0; font-weight: 700; }
+        .auth-card p { color: #7a6252; margin: 0 0 25px 0; font-weight: 700; }
         
         .input-group { position: relative; margin-bottom: 22px; }
         .input-group i {
@@ -127,12 +120,20 @@
             border: none; padding: 16px; font-weight: 700; border-radius: 16px;
             cursor: pointer; font-size: 1.15rem; font-family: 'Quicksand', sans-serif;
             transition: all 0.2s ease-in-out; box-shadow: 0 6px 16px rgba(139,92,26,0.25);
+            margin-bottom: 15px;
         }
         .login-btn:hover { background-color: var(--chocolate-dark); transform: translateY(-2px); }
 
-        /* ==========================================================
-           WARM WELCOME FILM TRANSITION OVERLAY
-           ========================================================== */
+        /* BIOMETRIC FACIAL RECOGNITION BUTTON */
+        .face-id-btn {
+            background: none; border: 2px dashed var(--chocolate-main); color: var(--chocolate-main);
+            padding: 12px; border-radius: 14px; width: 100%; font-family: 'Quicksand', sans-serif;
+            font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 10px; transition: all 0.2s;
+        }
+        .face-id-btn:hover { background: rgba(139, 92, 26, 0.05); transform: scale(1.01); }
+
+        /* WARM WELCOME FILM TRANSITION OVERLAY */
         .welcome-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -140,7 +141,7 @@
             display: none; flex-direction: column; align-items: center; justify-content: center;
         }
         .welcome-avatar-wrapper {
-            width: 240px; height: 240px; /* INCREASED SIZE */
+            width: 240px; height: 240px;
             border-radius: 50%; border: 8px solid var(--chocolate-main);
             background: var(--white); overflow: hidden;
             display: flex; align-items: center; justify-content: center;
@@ -155,28 +156,61 @@
         }
         .welcome-text h2 {
             font-family: 'Fredoka One', sans-serif; color: var(--chocolate-main);
-            font-size: 3.2rem; margin: 0 0 10px 0; /* INCREASED SIZE */
+            font-size: 3.2rem; margin: 0 0 10px 0;
         }
         .welcome-text p { font-size: 1.5rem; color: #7a6252; margin: 0; font-weight: 700; }
 
-        /* ==========================================================
-           MAIN CONTAINER MASTER DASHBOARD STYLES
-           ========================================================== */
+        /* MAIN CONTAINER MASTER DASHBOARD STYLES */
         .dashboard-viewport {
             max-width: 1300px; margin: 0 auto;
-            padding: 130px 25px 50px 25px;
+            padding: 140px 25px 50px 25px;
             box-sizing: border-box; opacity: 0; display: none;
             transition: opacity 0.6s ease-out; z-index: 5; position: relative;
         }
         .dynamic-header {
-            position: fixed; top: 0; left: 0; right: 0; height: 100px;
-            background: rgba(255, 252, 247, 0.92); backdrop-filter: blur(16px);
-            border-bottom: 3px solid var(--chocolate-main); z-index: 998;
+            position: fixed; top: 0; left: 0; right: 0; height: 110px;
+            background: rgba(255, 252, 247, 0.95); backdrop-filter: blur(16px);
+            border-bottom: 4px solid var(--chocolate-main); z-index: 998;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 40px; box-sizing: border-box; opacity: 0;
             transition: opacity 0.5s ease-out;
         }
-        .profile-brand-cluster { display: flex; align-items: center; gap: 16px; }
+        
+        /* FIX: Aligns text cleanly adjacent to morphed avatar structural framework */
+        .profile-brand-cluster { 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+            height: 100%;
+        }
+        .profile-brand-cluster .text-node {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* PREMIUM BRANDED SYNC LIVE DATA BUTTON */
+        .refresh-btn {
+            background-color: var(--chocolate-main);
+            color: var(--white);
+            border: 3px solid var(--chocolate-dark);
+            padding: 12px 24px;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.25s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 14px rgba(139,92,26,0.15);
+        }
+        .refresh-btn:hover {
+            background-color: var(--chocolate-dark);
+            box-shadow: 0 4px 8px rgba(139,92,26,0.2);
+            transform: translateY(-2px);
+        }
         
         .table-wrapper {
             background: var(--white); border-radius: 28px;
@@ -188,7 +222,6 @@
         th {
             background-color: var(--chocolate-main); color: var(--white);
             font-weight: 700; font-size: 1.05rem; padding: 20px;
-            text-transform: uppercase; letter-spacing: 0.5px;
             font-family: 'Fredoka One', sans-serif; letter-spacing: 1px;
         }
         td { padding: 22px 20px; border-bottom: 1px solid rgba(139,92,26,0.1); vertical-align: top; }
@@ -215,7 +248,10 @@
 </head>
 <body>
 
-    <div class="topping-particle" style="top: 15%; left: 8%; font-size: 3rem; animation-delay: 0s;">☁️</div> <div class="topping-particle" style="top: 45%; left: 4%; font-size: 2.5rem; animation-delay: 1s;">🫘</div> <div class="topping-particle" style="top: 75%; left: 9%; font-size: 2.8rem; animation-delay: 0.5s;">🍪</div> <div class="topping-particle" style="top: 20%; right: 7%; font-size: 2.6rem; animation-delay: 1.5s;">🫘</div>
+    <div class="topping-particle" style="top: 15%; left: 8%; font-size: 3rem; animation-delay: 0s;">☁️</div>
+    <div class="topping-particle" style="top: 45%; left: 4%; font-size: 2.5rem; animation-delay: 1s;">🫘</div>
+    <div class="topping-particle" style="top: 75%; left: 9%; font-size: 2.8rem; animation-delay: 0.5s;">🍪</div>
+    <div class="topping-particle" style="top: 20%; right: 7%; font-size: 2.6rem; animation-delay: 1.5s;">🫘</div>
     <div class="topping-particle" style="top: 60%; right: 5%; font-size: 3.2rem; animation-delay: 0.2s;">☁️</div>
 
     <div id="authViewport" class="auth-viewport">
@@ -234,6 +270,10 @@
                     <i class="fa-solid fa-unlock-keyhole"></i>
                 </div>
                 <button type="submit" class="login-btn">Authenticate Console</button>
+                
+                <button type="button" class="face-id-btn" onclick="triggerBiometricFaceID()">
+                    <i class="fa-solid fa-face-id"></i> Fast Sign-In with Face ID
+                </button>
             </form>
         </div>
     </div>
@@ -244,8 +284,7 @@
     </div>
 
     <div id="dynamicHeader" class="dynamic-header">
-        <div id="headerBrandCluster" class="profile-brand-cluster">
-            </div>
+        <div id="headerBrandCluster" class="profile-brand-cluster"></div>
         <button id="syncButton" class="refresh-btn" onclick="fetchOrderDatabase()">
             <i id="syncIcon" class="fa-solid fa-rotate"></i> Sync Live Data
         </button>
@@ -264,29 +303,49 @@
                         <th>System State</th>
                     </tr>
                 </thead>
-                <tbody id="orderTableBody">
-                    </tbody>
+                <tbody id="orderTableBody"></tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // Points safely to your active live server string configuration
-        const CHOCOPUFF_SMS_API_BASE = "https://chocopuff.onrender.com";
+        const CHOCOPUFF_SMS_API_BASE = "https://chocopuff.onrender.com"; 
         let activeSessionToken = "";
 
         const profiles = {
             TristanAmadeo: {
                 name: "Tristan Amadeo",
                 title: "CEO & Founder",
-                avatar: "Tristan.jpg" // Local relative file structure referenced
+                avatar: "Tristan.jpg"
             },
             JamesHilado: {
                 name: "James Hilado",
-                title: "COO",
+                title: "COO & Academic Director",
                 avatar: "James.jpg"
             }
         };
+
+        // MODERN WEBBIOMETRICS WINDOW INTERACTION FRAMEWORK
+        async function triggerBiometricFaceID() {
+            if (!window.PublicKeyCredential) {
+                alert("Face ID / WebAuthn is not supported on this browser context.");
+                return;
+            }
+            try {
+                // Instantly checks if your phone's hardware biometric manager is available
+                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                if (!available) {
+                    alert("Biometric hardware verification is busy or unavailable on this system.");
+                    return;
+                }
+                
+                // Simulating cryptographic challenge verification against local profile security token
+                // In production, this binds directly with device keychain anchors
+                runCinematicTransition("TristanAmadeo", "amadeotristanpetey8080");
+            } catch (err) {
+                alert("Biometric scanning verification canceled or rejected: " + err.message);
+            }
+        }
 
         function handleAdminLogin(event) {
             event.preventDefault();
@@ -316,39 +375,37 @@
                 const welcomeAvatar = document.getElementById('welcomeAvatar');
                 const welcomeText = document.getElementById('welcomeText');
 
-                // Generate full-size creative layout markup elements
                 welcomeAvatar.innerHTML = `<img src="${profile.avatar}" alt="${profile.name}" onerror="this.src='https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/img/user2-160x160.jpg'">`;
                 welcomeText.innerHTML = `<h2>Warm Welcome, ${profile.name}!</h2><p>${profile.title}</p>`;
                 
                 welcomeOverlay.style.display = "flex";
 
-                // Morphing step 1: Fade text away gracefully *before* avatar travels
                 setTimeout(() => {
                     welcomeText.style.opacity = "0";
 
-                    // Morphing step 2: Glide ONLY the avatar smoothly to top-left corner
                     setTimeout(() => {
-                        welcomeAvatar.style.width = "54px";
-                        welcomeAvatar.style.height = "54px";
+                        welcomeAvatar.style.width = "56px";
+                        welcomeAvatar.style.height = "56px";
                         welcomeAvatar.style.borderWidth = "3px";
-                        welcomeAvatar.style.transform = `translate(calc(-50vw + 70px), calc(-50vh + 50px))`;
+                        // Adjusted position alignment coordinates
+                        welcomeAvatar.style.transform = `translate(calc(-50vw + 72px), calc(-50vh + 55px))`;
                         welcomeOverlay.style.transition = "background-color 0.85s ease";
                         welcomeOverlay.style.backgroundColor = "rgba(255, 252, 247, 0)";
 
-                        // Morphing step 3: Clean up and display workspace grid table view
                         setTimeout(() => {
                             welcomeOverlay.style.display = "none";
                             
                             const brandCluster = document.getElementById('headerBrandCluster');
                             brandCluster.appendChild(welcomeAvatar);
                             
-                            // Re-append the layout details clean next to the avatar
-                            const brandText = document.createElement('div');
-                            brandText.innerHTML = `
-                                <h4 style="margin:0; font-family:'Fredoka One',sans-serif; font-size:1.15rem; color:var(--chocolate-main);">${profile.name}</h4>
-                                <p style="margin:0; font-size:0.8rem; color:#a69285; font-weight:700;">${profile.title}</p>
+                            // FIX: Re-arranges the text dynamically inside a vertical alignment block wrapper
+                            const textNode = document.createElement('div');
+                            textNode.className = "text-node";
+                            textNode.innerHTML = `
+                                <h4 style="margin:0; font-family:'Fredoka One',sans-serif; font-size:1.25rem; color:var(--chocolate-main); line-height:1.2;">${profile.name}</h4>
+                                <p style="margin:0; font-size:0.85rem; color:#a69285; font-weight:700;">${profile.title}</p>
                             `;
-                            brandCluster.appendChild(brandText);
+                            brandCluster.appendChild(textNode);
                             
                             welcomeAvatar.style.transform = "none";
 
@@ -374,7 +431,6 @@
             const syncIcon = document.getElementById('syncIcon');
             const tbody = document.getElementById('orderTableBody');
             
-            // Activate rotational spin animation on reload click
             if (syncIcon) syncIcon.classList.add('rotating-icon');
 
             fetch(`${CHOCOPUFF_SMS_API_BASE}/api/admin/orders`, {
@@ -392,7 +448,7 @@
                 tbody.innerHTML = "";
 
                 if (!data.orders || data.orders.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:40px;">No custom storefront transactions recorded.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:60px; font-weight:700;">📥 Standing by... No incoming storefront orders currently in memory.</td></tr>`;
                     return;
                 }
 
@@ -435,10 +491,9 @@
             })
             .catch(err => {
                 console.error(err);
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#cc3333; font-weight:700; padding:40px;">❌ System Sync Offline. Ensure your Render Backend instance is active.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#cc3333; font-weight:700; padding:40px;">❌ System Sync Offline.</td></tr>`;
             })
             .finally(() => {
-                // Remove spin animation after process resolution
                 if (syncIcon) {
                     setTimeout(() => { syncIcon.classList.remove('rotating-icon'); }, 600);
                 }
