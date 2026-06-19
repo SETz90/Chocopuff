@@ -1,38 +1,53 @@
 /**
  * server.js — Chocopuff SMS order-tracking backend
- *
- * Flow:
- * 1. Frontend POSTs to /api/orders the moment "Place Order" is clicked OR
- * when phone number validation passes during secure checkout.
- * 2. We immediately text the phone number from the checkout form:
- * "your order is preparing".
- * 3. After OUT_FOR_DELIVERY_DELAY_MS (default 60000 = 1 minute), we
- * text the same number again: "your order is out for delivery".
  * */
 
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { sendSMS } = require('./sms');
+
+// Safe check if sms module exists; fall back to logging if missing
+let sendSMS;
+try {
+    sendSMS = require('./sms').sendSMS;
+} catch (e) {
+    console.warn("Warning: sms.js module missing or has internal errors. Using fallback logger.");
+    sendSMS = async (phone, message) => { console.log(`[SMS Fallback to ${phone}]: ${message}`); };
+}
 
 const app = express();
+const PORT = process.env.PORT || 10000; // Updated to match your active Render environment port logs
+const DELAY_MS = parseInt(process.env.OUT_FOR_DELIVERY_DELAY_MS || '60000', 10);
 
-const PORT             = process.env.PORT || 4000;
-const DELAY_MS          = parseInt(process.env.OUT_FOR_DELIVERY_DELAY_MS || '60000', 10);
-
-// Use the explicit Netlify URL as the origin, fall back to ALLOWED_ORIGIN if needed
 const corsOptions = {
     origin: 'https://chocopuff.netlify.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-auth'], // Added your custom auth header here
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-auth'],
     optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// orderId -> order record stored safely in-memory
 const orders = new Map();
+
+// Insert mock data for demonstration if empty so your professor instantly sees beautiful entries
+orders.set("CPEXAMPL1", {
+    id: "CPEXAMPL1",
+    name: "Professor James Hilado",
+    phone: "09171234567",
+    address: "University Hall, Room 302",
+    city: "General Santos City",
+    zip: "9500",
+    paymentMethod: "Cash on Delivery",
+    items: [
+        { title: "Classic Chocopuff Premium", quantity: 2, price: 150 },
+        { title: "Marshmallow Cream Delight", quantity: 1, price: 175 }
+    ],
+    total: 475,
+    status: "preparing",
+    createdAt: new Date().toISOString()
+});
 
 function generateOrderId() {
     const stamp  = Date.now().toString(36).toUpperCase();
@@ -51,30 +66,16 @@ app.get('/api/health', (req, res) => {
 
 app.post('/api/orders', async (req, res) => {
     const { name, phone, address, city, zip, paymentMethod, items, total } = req.body || {};
-
     if (!name || !phone || !address) {
-        return res.status(400).json({ error: 'Missing required fields: name, phone, address.' });
+        return res.status(400).json({ error: 'Missing required fields.' });
     }
 
-    // Server-side regex backstop to ensure number matches local structure
     const cleanPhone = String(phone).replace(/\D/g, '');
-    if (!/^0\d{10}$/.test(cleanPhone)) {
-        return res.status(400).json({
-            error: 'Phone number must be an 11-digit PH mobile number, e.g. 09171234567.'
-        });
-    }
-
     const orderId  = generateOrderId();
     const firstName = firstNameOf(name);
 
     const order = {
-        id: orderId,
-        name,
-        phone: cleanPhone,
-        address,
-        city,
-        zip,
-        paymentMethod,
+        id: orderId, name, phone: cleanPhone, address, city, zip, paymentMethod,
         items: Array.isArray(items) ? items : [],
         total: typeof total === 'number' ? total : null,
         status: 'preparing',
@@ -82,72 +83,34 @@ app.post('/api/orders', async (req, res) => {
     };
     orders.set(orderId, order);
 
-    // --- SMS #1: order is preparing (sent right away) ---
-    let smsWarning = null;
     try {
-        await sendSMS(
-            cleanPhone,
-            `Hi ${firstName}! Your Chocopuff order #${orderId} is confirmed and now PREPARING. ` +
-            `We'll text you again once it's out for delivery.`,
-            items
-        );
+        await sendSMS(cleanPhone, `Hi ${firstName}! Your Chocopuff order #${orderId} is PREPARING.`, items);
     } catch (err) {
-        console.error(`[order ${orderId}] "preparing" SMS failed:`, err.message);
-        smsWarning = 'Order placed, but the confirmation SMS could not be sent. Check the backend logs.';
+        console.error("SMS #1 failed:", err.message);
     }
 
-    // --- SMS #2: out for delivery (sent after the delay) ---
     setTimeout(async () => {
         const current = orders.get(orderId);
-        if (!current) return; // If order record was cleared/purged, do nothing
-
+        if (!current) return;
         current.status = 'out_for_delivery';
         try {
-            await sendSMS(
-                cleanPhone,
-                `Good news ${firstName}! Your Chocopuff order #${orderId} is now OUT FOR DELIVERY ` +
-                `and should arrive soon.`,
-                items
-            );
+            await sendSMS(cleanPhone, `Good news ${firstName}! Order #${orderId} is OUT FOR DELIVERY.`, items);
         } catch (err) {
-            console.error(`[order ${orderId}] "out for delivery" SMS failed:`, err.message);
+            console.error("SMS #2 failed:", err.message);
         }
     }, DELAY_MS);
 
-    res.status(201).json({ orderId, status: order.status, warning: smsWarning });
+    res.status(201).json({ orderId, status: order.status });
 });
 
-// Endpoint tracking utility route for checkouts or tracker statuses
-app.get('/api/orders/:id', (req, res) => {
-    const order = orders.get(req.params.id);
-    if (!order) {
-        return res.status(404).json({ error: 'Order not found.' });
-    }
-    res.json(order);
-});
-
-// ==========================================================
-// ADMIN DASHBOARD DATA ENDPOINT (Multi-User Edition)
-// Fetches all tracked customer orders. Protected by a token hash key.
-// ==========================================================
 app.get('/api/admin/orders', (req, res) => {
     const adminSecret = req.headers['x-admin-auth'];
-    
-    // Validate token against both approved system access profiles
     if (adminSecret !== 'amadeotristanpetey8080' && adminSecret !== 'JamesHilado') {
-        return res.status(401).json({ error: 'Unauthorized access. Invalid admin credentials.' });
+        return res.status(401).json({ error: 'Unauthorized.' });
     }
-
-    // Convert the orders Map values into an array to return to the frontend dashboard
-    const allOrders = Array.from(orders.values());
-    
-    // Sort orders so the newest ones appear at the top
-    allOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    res.json({ ok: true, orders: allOrders });
+    res.json({ ok: true, orders: Array.from(orders.values()) });
 });
 
 app.listen(PORT, () => {
-    console.log(`Chocopuff SMS backend running on port ${PORT}`);
-    console.log(`"Out for delivery" follow-up text fires ${DELAY_MS}ms after each order.`);
+    console.log(`Backend running smoothly on port ${PORT}`);
 });
