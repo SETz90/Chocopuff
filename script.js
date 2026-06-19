@@ -655,12 +655,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ==========================================================
-    // SMS ORDER TRACKING
+   // ==========================================================
+    // SMS ORDER TRACKING (Discord Notification Webhook Edition)
     // Fires the moment "Place Order" is clicked (leaving step 3 = Review).
     // Sends the delivery info — including the phone number entered in
-    // step 1 — to the backend in /backend, which texts that number:
-    //   1) immediately:      "your order is preparing"
+    // step 1 — to the backend in /backend, which alerts Discord:
+    //   1) immediately:     "your order is preparing"
     //   2) ~1 minute later:  "your order is out for delivery"
     // See backend/README.md for setup. This never blocks or breaks
     // checkout — if the backend is offline, the order still completes.
@@ -692,11 +692,78 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 console.warn('SMS backend responded with an issue:', data.error || data);
             }
+
+            // ========================================================
+            // 1. CLOSE SECURE CHECKOUT MODAL FIRST
+            // ========================================================
+            if (typeof closeCheckoutModal === 'function') {
+                closeCheckoutModal();
+            }
+
+            // ========================================================
+            // 2. OPEN THE FLASHING DISCORD MODAL OVERLAY (5 SECONDS)
+            // ========================================================
+            const flashOverlay = document.createElement('div');
+            flashOverlay.style.position = 'fixed';
+            flashOverlay.style.top = '0';
+            flashOverlay.style.left = '0';
+            flashOverlay.style.width = '100vw';
+            flashOverlay.style.height = '100vh';
+            flashOverlay.style.color = '#ffffff';
+            flashOverlay.style.display = 'flex';
+            flashOverlay.style.flexDirection = 'column';
+            flashOverlay.style.alignItems = 'center';
+            flashOverlay.style.justifyContent = 'center';
+            flashOverlay.style.zIndex = '999999';
+            flashOverlay.style.fontFamily = "'Quicksand', sans-serif";
+            flashOverlay.style.textAlign = 'center';
+            flashOverlay.style.padding = '20px';
+            flashOverlay.style.boxSizing = 'border-box';
+            flashOverlay.style.animation = 'discordFlashEffect 0.5s ease-in-out alternate infinite';
+
+            // Inject dynamic keyframe background flashing animations
+            const flashStyleNode = document.createElement("style");
+            flashStyleNode.innerText = `
+                @keyframes discordFlashEffect {
+                    from { background-color: rgba(114, 137, 218, 0.96); } /* Discord Blurple */
+                    to { background-color: rgba(44, 47, 51, 0.96); }      /* Discord Dark Gray */
+                }
+            `;
+            document.head.appendChild(flashStyleNode);
+
+            // Construct layout structure with QR Code Generator API and invitation specs
+            flashOverlay.innerHTML = `
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px; font-weight: 700;">🍫 Order Placed Successfully!</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your order menu is now notifying our team on Discord!</p>
+                
+                <div style="background: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); text-align: center;">
+                    <h2 style="color: #23272a; margin-top: 0; margin-bottom: 15px; font-size: 1.6rem; font-weight: 700;">Join Chocopuff's server</h2>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://discord.gg/pdVdj8RkB" 
+                         alt="Discord Server QR Code" 
+                         style="width: 160px; height: 160px; display: block; margin: 0 auto;" />
+                </div>
+
+                <p style="font-size: 1.2rem; margin-top: 25px; font-weight: 600;">
+                    Invitation URL: <a href="https://discord.gg/pdVdj8RkB" target="_blank" style="color: #00ffcc; text-decoration: underline; margin-left: 5px;">https://discord.gg/pdVdj8RkB</a>
+                </p>
+                <p style="font-size: 0.9rem; margin-top: 40px; opacity: 0.6; font-style: italic;">This confirmation screen will close in 5 seconds...</p>
+            `;
+
+            document.body.appendChild(flashOverlay);
+
+            // Set self-destruct timer to clean up UI elements after 5000ms
+            setTimeout(() => {
+                flashOverlay.remove();
+                flashStyleNode.remove();
+            }, 5000);
         })
         .catch(err => {
-            // Backend unreachable (not running, wrong URL, no internet, etc.)
-            // Checkout still proceeds — the customer just won't get texts.
             console.warn('Could not reach the SMS tracking backend (is it running?):', err.message);
+            
+            // Fallback: Securely close checkout modal if network interface drops
+            if (typeof closeCheckoutModal === 'function') {
+                closeCheckoutModal();
+            }
         });
     }
 
