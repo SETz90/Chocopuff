@@ -24,7 +24,7 @@ const DELAY_MS          = parseInt(process.env.OUT_FOR_DELIVERY_DELAY_MS || '600
 const corsOptions = {
     origin: 'https://chocopuff.netlify.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-auth'], // Added your custom auth header here
     optionsSuccessStatus: 200
 };
 
@@ -85,7 +85,6 @@ app.post('/api/orders', async (req, res) => {
     // --- SMS #1: order is preparing (sent right away) ---
     let smsWarning = null;
     try {
-        // FIXED: Added 'items' as the third parameter here
         await sendSMS(
             cleanPhone,
             `Hi ${firstName}! Your Chocopuff order #${orderId} is confirmed and now PREPARING. ` +
@@ -104,7 +103,6 @@ app.post('/api/orders', async (req, res) => {
 
         current.status = 'out_for_delivery';
         try {
-            // FIXED: Added 'items' as the third parameter here
             await sendSMS(
                 cleanPhone,
                 `Good news ${firstName}! Your Chocopuff order #${orderId} is now OUT FOR DELIVERY ` +
@@ -126,6 +124,27 @@ app.get('/api/orders/:id', (req, res) => {
         return res.status(404).json({ error: 'Order not found.' });
     }
     res.json(order);
+});
+
+// ==========================================================
+// ADMIN DASHBOARD DATA ENDPOINT (Multi-User Edition)
+// Fetches all tracked customer orders. Protected by a token hash key.
+// ==========================================================
+app.get('/api/admin/orders', (req, res) => {
+    const adminSecret = req.headers['x-admin-auth'];
+    
+    // Validate token against both approved system access profiles
+    if (adminSecret !== 'amadeotristanpetey8080' && adminSecret !== 'JamesHilado') {
+        return res.status(401).json({ error: 'Unauthorized access. Invalid admin credentials.' });
+    }
+
+    // Convert the orders Map values into an array to return to the frontend dashboard
+    const allOrders = Array.from(orders.values());
+    
+    // Sort orders so the newest ones appear at the top
+    allOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json({ ok: true, orders: allOrders });
 });
 
 app.listen(PORT, () => {
