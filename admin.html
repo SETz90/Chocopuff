@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chocopuff | Executive Command Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -124,14 +124,21 @@
         }
         .login-btn:hover { background-color: var(--chocolate-dark); transform: translateY(-2px); }
 
-        /* BIOMETRIC FACIAL RECOGNITION BUTTON */
+        /* BIOMETRIC FACIAL RECOGNITION BUTTONS */
         .face-id-btn {
             background: none; border: 2px dashed var(--chocolate-main); color: var(--chocolate-main);
             padding: 12px; border-radius: 14px; width: 100%; font-family: 'Quicksand', sans-serif;
             font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex;
             align-items: center; justify-content: center; gap: 10px; transition: all 0.2s;
+            margin-bottom: 10px;
         }
         .face-id-btn:hover { background: rgba(139, 92, 26, 0.05); transform: scale(1.01); }
+
+        .setup-biometric-link {
+            font-size: 0.85rem; color: #a69285; cursor: pointer; text-decoration: underline;
+            font-weight: 700; display: inline-block; margin-top: 5px;
+        }
+        .setup-biometric-link:hover { color: var(--chocolate-main); }
 
         /* WARM WELCOME FILM TRANSITION OVERLAY */
         .welcome-overlay {
@@ -156,32 +163,32 @@
         }
         .welcome-text h2 {
             font-family: 'Fredoka One', sans-serif; color: var(--chocolate-main);
-            font-size: 3.2rem; margin: 0 0 10px 0;
+            font-size: 2.5rem; margin: 0 0 10px 0; padding: 0 15px;
         }
-        .welcome-text p { font-size: 1.5rem; color: #7a6252; margin: 0; font-weight: 700; }
+        .welcome-text p { font-size: 1.25rem; color: #7a6252; margin: 0; font-weight: 700; }
 
         /* MAIN CONTAINER MASTER DASHBOARD STYLES */
         .dashboard-viewport {
             max-width: 1300px; margin: 0 auto;
-            padding: 140px 25px 50px 25px;
+            padding: 140px 15px 40px 15px;
             box-sizing: border-box; opacity: 0; display: none;
             transition: opacity 0.6s ease-out; z-index: 5; position: relative;
         }
+        
+        /* UPDATED HEADER: Responsive bar mechanics preventing clipping */
         .dynamic-header {
-            position: fixed; top: 0; left: 0; right: 0; height: 110px;
-            background: rgba(255, 252, 247, 0.95); backdrop-filter: blur(16px);
+            position: fixed; top: 0; left: 0; right: 0; min-height: 90px;
+            background: rgba(255, 252, 247, 0.96); backdrop-filter: blur(16px);
             border-bottom: 4px solid var(--chocolate-main); z-index: 998;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px; box-sizing: border-box; opacity: 0;
-            transition: opacity 0.5s ease-out;
+            padding: 10px 24px; box-sizing: border-box; opacity: 0;
+            transition: opacity 0.5s ease-out; flex-wrap: wrap; gap: 15px;
         }
         
-        /* FIX: Aligns text cleanly adjacent to morphed avatar structural framework */
         .profile-brand-cluster { 
             display: flex; 
             align-items: center; 
-            gap: 18px; 
-            height: 100%;
+            gap: 14px;
         }
         .profile-brand-cluster .text-node {
             display: flex;
@@ -189,61 +196,68 @@
             justify-content: center;
         }
         
-        /* PREMIUM BRANDED SYNC LIVE DATA BUTTON */
         .refresh-btn {
-            background-color: var(--chocolate-main);
-            color: var(--white);
-            border: 3px solid var(--chocolate-dark);
-            padding: 12px 24px;
-            font-weight: 700;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-family: 'Quicksand', sans-serif;
-            transition: all 0.25s ease-in-out;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 6px 14px rgba(139,92,26,0.15);
+            background-color: var(--chocolate-main); color: var(--white); border: 3px solid var(--chocolate-dark);
+            padding: 10px 20px; font-weight: 700; border-radius: 14px; cursor: pointer; font-size: 0.95rem;
+            font-family: 'Quicksand', sans-serif; transition: all 0.25s ease-in-out; display: flex;
+            align-items: center; gap: 8px; box-shadow: 0 6px 14px rgba(139,92,26,0.15);
         }
         .refresh-btn:hover {
-            background-color: var(--chocolate-dark);
-            box-shadow: 0 4px 8px rgba(139,92,26,0.2);
-            transform: translateY(-2px);
+            background-color: var(--chocolate-dark); box-shadow: 0 4px 8px rgba(139,92,26,0.2); transform: translateY(-2px);
         }
         
+        /* MOBILE RESPONSIVE SWIPE BOX */
         .table-wrapper {
-            background: var(--white); border-radius: 28px;
-            border: 4px solid var(--chocolate-main); overflow: hidden;
-            box-shadow: 0 15px 45px rgba(139,92,26,0.08);
-            animation: subtleGlowPulse 2.5s ease-in-out alternate infinite;
+            background: var(--white); border-radius: 24px; border: 4px solid var(--chocolate-main);
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            box-shadow: 0 15px 45px rgba(139,92,26,0.08); animation: subtleGlowPulse 2.5s ease-in-out alternate infinite;
+            margin-top: 10px;
         }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 850px; }
         th {
-            background-color: var(--chocolate-main); color: var(--white);
-            font-weight: 700; font-size: 1.05rem; padding: 20px;
-            font-family: 'Fredoka One', sans-serif; letter-spacing: 1px;
+            background-color: var(--chocolate-main); color: var(--white); font-weight: 700; font-size: 1rem; padding: 18px 15px;
+            font-family: 'Fredoka One', sans-serif; letter-spacing: 0.5px; white-space: nowrap;
         }
-        td { padding: 22px 20px; border-bottom: 1px solid rgba(139,92,26,0.1); vertical-align: top; }
+        td { padding: 18px 15px; border-bottom: 1px solid rgba(139,92,26,0.1); vertical-align: top; }
         
         .order-id-tag {
             background: #f4eae1; padding: 6px 12px; border-radius: 10px;
             font-weight: 700; color: var(--chocolate-dark); border: 2px solid rgba(139,92,26,0.15);
         }
         .status-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; white-space: nowrap;
         }
         .status-preparing { background-color: #ffe6cc; color: #b35900; }
         .status-delivery { background-color: #d1e7dd; color: #0f5132; }
 
-        .item-badge-list { margin: 0; padding: 0; list-style-type: none; }
+        .item-badge-list { margin: 0; padding: 0; list-style-type: none; min-width: 180px; }
         .item-badge-list li {
             background: var(--cream-bg); border: 1px solid rgba(139,92,26,0.1);
             padding: 6px 12px; border-radius: 8px; margin-bottom: 6px; font-size: 0.9rem; font-weight: 700;
         }
         
         .rotating-icon { animation: spinIcon 0.8s linear infinite; }
+
+        /* RESPONSIVE MEDIA BREAKPOINTS */
+        @media (max-width: 600px) {
+            .dynamic-header {
+                justify-content: center;
+                text-align: center;
+                padding: 15px;
+            }
+            .profile-brand-cluster {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .refresh-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .dashboard-viewport {
+                padding-top: 190px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -274,6 +288,8 @@
                 <button type="button" class="face-id-btn" onclick="triggerBiometricFaceID()">
                     <i class="fa-solid fa-face-id"></i> Fast Sign-In with Face ID
                 </button>
+                
+                <span class="setup-biometric-link" onclick="registerBiometricDevice()">First time? Setup device Face ID</span>
             </form>
         </div>
     </div>
@@ -325,25 +341,99 @@
             }
         };
 
-        // MODERN WEBBIOMETRICS WINDOW INTERACTION FRAMEWORK
-        async function triggerBiometricFaceID() {
-            if (!window.PublicKeyCredential) {
-                alert("Face ID / WebAuthn is not supported on this browser context.");
+        const bufferToBase64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+        const base64ToBuffer = base64 => Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+        // 1. BIOMETRIC REGISTRATION
+        async function registerBiometricDevice() {
+            const user = document.getElementById('usernameInput').value.trim();
+            const pass = document.getElementById('passwordInput').value.trim();
+
+            if (!user || !pass) {
+                alert("Please fill out your Username and Password first so we know who to link Face ID to!");
                 return;
             }
-            try {
-                // Instantly checks if your phone's hardware biometric manager is available
-                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-                if (!available) {
-                    alert("Biometric hardware verification is busy or unavailable on this system.");
+            if ((user === "TristanAmadeo" && pass === "amadeotristanpetey8080") || (user === "JamesHilado" && pass === "JamesHilado")) {
+                if (!window.PublicKeyCredential) {
+                    alert("WebAuthn Biometrics are not supported on this browser version.");
                     return;
                 }
+
+                try {
+                    const challenge = new Uint8Array(32);
+                    window.crypto.getRandomValues(challenge);
+                    const userId = new Uint8Array(16);
+                    window.crypto.getRandomValues(userId);
+
+                    const createCredentialOptions = {
+                        challenge: challenge,
+                        rp: { name: "Chocopuff Admin Hub", id: window.location.hostname },
+                        user: {
+                            id: userId,
+                            name: user,
+                            displayName: profiles[user].name
+                        },
+                        pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+                        authenticatorSelection: {
+                            authenticatorAttachment: "platform",
+                            userVerification: "required"
+                        },
+                        timeout: 60000
+                    };
+
+                    const credential = await navigator.credentials.create({ publicKey: createCredentialOptions });
+                    
+                    if (credential) {
+                        localStorage.setItem(`chocopuff_biometric_user`, user);
+                        localStorage.setItem(`chocopuff_biometric_pass`, pass);
+                        localStorage.setItem(`chocopuff_biometric_id`, bufferToBase64(credential.rawId));
+                        
+                        alert(`🎉 Face ID successfully registered on this device for ${profiles[user].name}! You can now use Fast Sign-In.`);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Device biometric registration failed: " + err.message);
+                }
+            } else {
+                alert("Invalid username/password credentials. Cannot bind biometrics.");
+            }
+        }
+
+        // 2. BIOMETRIC LOGIN SCAN
+        async function triggerBiometricFaceID() {
+            const savedUserIdBase64 = localStorage.getItem('chocopuff_biometric_id');
+            const savedUserKey = localStorage.getItem('chocopuff_biometric_user');
+            const savedPasswordToken = localStorage.getItem('chocopuff_biometric_pass');
+
+            if (!savedUserIdBase64 || !savedUserKey) {
+                alert("No Face ID profile registered on this device yet. Please fill in credentials and click 'Setup device Face ID' below first.");
+                return;
+            }
+
+            try {
+                const challenge = new Uint8Array(32);
+                window.crypto.getRandomValues(challenge);
+                const credentialIdBuffer = base64ToBuffer(savedUserIdBase64);
+
+                const assertionOptions = {
+                    challenge: challenge,
+                    rpId: window.location.hostname,
+                    allowCredentials: [{
+                        type: "public-key",
+                        id: credentialIdBuffer
+                    }],
+                    userVerification: "required",
+                    timeout: 60000
+                };
+
+                const assertion = await navigator.credentials.get({ publicKey: assertionOptions });
                 
-                // Simulating cryptographic challenge verification against local profile security token
-                // In production, this binds directly with device keychain anchors
-                runCinematicTransition("TristanAmadeo", "amadeotristanpetey8080");
+                if (assertion) {
+                    runCinematicTransition(savedUserKey, savedPasswordToken);
+                }
             } catch (err) {
-                alert("Biometric scanning verification canceled or rejected: " + err.message);
+                console.error(err);
+                alert("Biometric verification canceled or rejected.");
             }
         }
 
@@ -387,8 +477,15 @@
                         welcomeAvatar.style.width = "56px";
                         welcomeAvatar.style.height = "56px";
                         welcomeAvatar.style.borderWidth = "3px";
-                        // Adjusted position alignment coordinates
-                        welcomeAvatar.style.transform = `translate(calc(-50vw + 72px), calc(-50vh + 55px))`;
+                        
+                        // Check if phone or desktop for the animation end positions
+                        const isMobile = window.innerWidth <= 600;
+                        if(isMobile) {
+                            welcomeAvatar.style.transform = `translate(0px, calc(-50vh + 60px))`;
+                        } else {
+                            welcomeAvatar.style.transform = `translate(calc(-50vw + 72px), calc(-50vh + 55px))`;
+                        }
+                        
                         welcomeOverlay.style.transition = "background-color 0.85s ease";
                         welcomeOverlay.style.backgroundColor = "rgba(255, 252, 247, 0)";
 
@@ -398,7 +495,6 @@
                             const brandCluster = document.getElementById('headerBrandCluster');
                             brandCluster.appendChild(welcomeAvatar);
                             
-                            // FIX: Re-arranges the text dynamically inside a vertical alignment block wrapper
                             const textNode = document.createElement('div');
                             textNode.className = "text-node";
                             textNode.innerHTML = `
@@ -448,7 +544,7 @@
                 tbody.innerHTML = "";
 
                 if (!data.orders || data.orders.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:60px; font-weight:700;">📥 Standing by... No incoming storefront orders currently in memory.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:40px; font-weight:700;">📥 Standing by... No incoming storefront orders currently in memory.</td></tr>`;
                     return;
                 }
 
