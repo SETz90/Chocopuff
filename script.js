@@ -659,11 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // SMS ORDER TRACKING (Discord Notification Webhook Edition)
     // Fires the moment "Place Order" is clicked (leaving step 3 = Review).
     // Sends the delivery info — including the phone number entered in
-    // step 1 — to the backend in /backend, which alerts Discord:
-    //   1) immediately:     "your order is preparing"
-    //   2) ~1 minute later:  "your order is out for delivery"
-    // See backend/README.md for setup. This never blocks or breaks
-    // checkout — if the backend is offline, the order still completes.
+    // step 1 — to the backend in /backend, which alerts Discord.
     // ==========================================================
     function triggerOrderSmsTracking() {
         const name          = document.getElementById('chk-name')?.value.trim()    || '';
@@ -701,66 +697,127 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // ========================================================
-            // 2. OPEN THE FLASHING DISCORD MODAL OVERLAY (5 SECONDS)
+            // 2. OPEN THE CUSTOM DISCORD POP-UP MODAL (THEMED TO MATCH)
             // ========================================================
-            const flashOverlay = document.createElement('div');
-            flashOverlay.style.position = 'fixed';
-            flashOverlay.style.top = '0';
-            flashOverlay.style.left = '0';
-            flashOverlay.style.width = '100vw';
-            flashOverlay.style.height = '100vh';
-            flashOverlay.style.color = '#ffffff';
-            flashOverlay.style.display = 'flex';
-            flashOverlay.style.flexDirection = 'column';
-            flashOverlay.style.alignItems = 'center';
-            flashOverlay.style.justifyContent = 'center';
-            flashOverlay.style.zIndex = '999999';
-            flashOverlay.style.fontFamily = "'Quicksand', sans-serif";
-            flashOverlay.style.textAlign = 'center';
-            flashOverlay.style.padding = '20px';
-            flashOverlay.style.boxSizing = 'border-box';
-            flashOverlay.style.animation = 'discordFlashEffect 0.5s ease-in-out alternate infinite';
-
-            // Inject dynamic keyframe background flashing animations
-            const flashStyleNode = document.createElement("style");
-            flashStyleNode.innerText = `
-                @keyframes discordFlashEffect {
-                    from { background-color: rgba(114, 137, 218, 0.96); } /* Discord Blurple */
-                    to { background-color: rgba(44, 47, 51, 0.96); }      /* Discord Dark Gray */
+            
+            // Create a temporary stylesheet for the animations and hover interactions
+            const styleNode = document.createElement("style");
+            styleNode.innerText = `
+                @keyframes backdropFadeIn {
+                    from { background-color: rgba(0, 0, 0, 0); }
+                    to { background-color: rgba(0, 0, 0, 0.6); }
+                }
+                @keyframes modalSlideUp {
+                    from { transform: translateY(30px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                @keyframes cardGlowPulse {
+                    from { box-shadow: 0 12px 40px rgba(114, 137, 218, 0.3); }
+                    to { box-shadow: 0 12px 40px rgba(139, 92, 26, 0.5); }
+                }
+                .chocopuff-discord-btn:hover {
+                    background-color: #677bc4 !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(114,137,218,0.4);
                 }
             `;
-            document.head.appendChild(flashStyleNode);
+            document.head.appendChild(styleNode);
 
-            // Construct layout structure with QR Code Generator API and invitation specs
-            flashOverlay.innerHTML = `
-                <h1 style="font-size: 2.5rem; margin-bottom: 10px; font-weight: 700;">🍫 Order Placed Successfully!</h1>
-                <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your order menu is now notifying our team on Discord!</p>
-                
-                <div style="background: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); text-align: center;">
-                    <h2 style="color: #23272a; margin-top: 0; margin-bottom: 15px; font-size: 1.6rem; font-weight: 700;">Join Chocopuff's server</h2>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://discord.gg/pdVdj8RkB" 
-                         alt="Discord Server QR Code" 
-                         style="width: 160px; height: 160px; display: block; margin: 0 auto;" />
+            // Create Backdrop Overlay
+            const backdrop = document.createElement('div');
+            backdrop.style.position = 'fixed';
+            backdrop.style.top = '0';
+            backdrop.style.left = '0';
+            backdrop.style.width = '100vw';
+            backdrop.style.height = '100vh';
+            backdrop.style.zIndex = '999999';
+            backdrop.style.display = 'flex';
+            backdrop.style.alignItems = 'center';
+            backdrop.style.justifyContent = 'center';
+            backdrop.style.padding = '20px';
+            backdrop.style.boxSizing = 'border-box';
+            backdrop.style.backdropFilter = 'blur(4px)';
+            backdrop.style.animation = 'backdropFadeIn 0.3s ease-out forwards';
+
+            // Create Modal Window Card Component
+            backdrop.innerHTML = `
+                <div style="
+                    background: #fffcf7; 
+                    width: 100%; 
+                    max-width: 480px; 
+                    border-radius: 24px; 
+                    padding: 35px 25px; 
+                    box-sizing: border-box;
+                    text-align: center;
+                    border: 3px solid #8b5c1a;
+                    font-family: 'Quicksand', 'Inter', sans-serif;
+                    animation: modalSlideUp 0.3s ease-out forwards, cardGlowPulse 1.5s ease-in-out alternate infinite;
+                ">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+                    <h2 style="
+                        font-family: 'Fredoka One', 'Quicksand', sans-serif; 
+                        color: #5c3a21; 
+                        margin: 0 0 8px 0; 
+                        font-size: 1.8rem;
+                    ">Order Placed!</h2>
+                    
+                    <p style="color: #7a6252; font-size: 1rem; line-height: 1.5; margin: 0 0 25px 0; font-weight: 600;">
+                        Your items have been registered successfully. Our fulfillment team is being notified directly on Discord!
+                    </p>
+                    
+                    <div style="
+                        background: #ffffff; 
+                        padding: 20px; 
+                        border-radius: 20px; 
+                        display: inline-block; 
+                        box-shadow: 0 6px 18px rgba(139,92,26,0.08);
+                        border: 1px solid rgba(139,92,26,0.15);
+                        margin-bottom: 25px;
+                    ">
+                        <h4 style="color: #5c3a21; margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 700;">
+                            Join Chocopuff's server
+                        </h4>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://discord.gg/pdVdj8RkB" 
+                             alt="Discord QR Link" 
+                             style="width: 150px; height: 150px; display: block; border-radius: 8px;" />
+                    </div>
+
+                    <a href="https://discord.gg/pdVdj8RkB" 
+                       target="_blank" 
+                       class="chocopuff-discord-btn"
+                       style="
+                           display: block;
+                           background-color: #7289da;
+                           color: #ffffff;
+                           text-decoration: none;
+                           padding: 14px 20px;
+                           border-radius: 14px;
+                           font-weight: 700;
+                           font-size: 1.1rem;
+                           transition: all 0.2s ease-in-out;
+                           margin-bottom: 15px;
+                       ">
+                        <i class="fab fa-discord" style="margin-right: 8px;"></i> Open Discord Invitation
+                    </a>
+
+                    <p style="color: #a69285; font-size: 0.85rem; margin: 0; font-style: italic; font-weight: 600;">
+                        This verification modal closes automatically in 5 seconds...
+                    </p>
                 </div>
-
-                <p style="font-size: 1.2rem; margin-top: 25px; font-weight: 600;">
-                    Invitation URL: <a href="https://discord.gg/pdVdj8RkB" target="_blank" style="color: #00ffcc; text-decoration: underline; margin-left: 5px;">https://discord.gg/pdVdj8RkB</a>
-                </p>
-                <p style="font-size: 0.9rem; margin-top: 40px; opacity: 0.6; font-style: italic;">This confirmation screen will close in 5 seconds...</p>
             `;
 
-            document.body.appendChild(flashOverlay);
+            document.body.appendChild(backdrop);
 
-            // Set self-destruct timer to clean up UI elements after 5000ms
+            // Automatically dissolve modal components cleanly after 5000 milliseconds
             setTimeout(() => {
-                flashOverlay.remove();
-                flashStyleNode.remove();
+                backdrop.remove();
+                styleNode.remove();
             }, 5000);
         })
         .catch(err => {
             console.warn('Could not reach the SMS tracking backend (is it running?):', err.message);
             
-            // Fallback: Securely close checkout modal if network interface drops
+            // Fallback safety layer: close modal layout cleanly if connections fail
             if (typeof closeCheckoutModal === 'function') {
                 closeCheckoutModal();
             }
@@ -776,12 +833,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please complete your delivery details before moving forward.');
                 return;
             }
-            // Validate phone = exactly 11 digits
             if (!/^\d{11}$/.test(phone)) {
                 alert('Phone number must be exactly 11 digits.');
                 return;
             }
-            // Validate postal = exactly 4 digits
             const zip = document.getElementById('chk-zip')?.value.trim();
             if (!/^\d{4}$/.test(zip)) {
                 alert('Postal code must be exactly 4 digits.');
@@ -789,8 +844,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Step 3 = Review panel. Clicking through here is "Place Order" —
-        // this is the moment the order actually gets placed.
         if (currentStep === 3) {
             triggerOrderSmsTracking();
         }
