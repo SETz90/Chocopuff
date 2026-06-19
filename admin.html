@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocopuff | Secure Executive Admin</title>
-    <!-- Font families matching your brand architecture -->
+    <title>Chocopuff | Executive Command Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for professional UI dashboard elements -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -15,42 +13,59 @@
             --chocolate-dark: #5c3a21;
             --cream-bg: #fffcf7;
             --white: #ffffff;
-            --blurple: #7289da;
+            --accent-pink: #ffb7b2;
+            --accent-marshmallow: #f0f3f4;
         }
 
         body {
             font-family: 'Quicksand', sans-serif;
             background-color: var(--cream-bg);
+            background-image: radial-gradient(rgba(139, 92, 26, 0.04) 2px, transparent 0);
+            background-size: 30px 30px;
             color: var(--chocolate-dark);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* ==========================================================
-           1. CORE ANIMATION TIMING DEFINITIONS
+           BACKGROUND TOPPING DECORATIONS SYSTEM
+           ========================================================== */
+        .topping-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.25;
+            animation: floatingDrift 8s ease-in-out infinite alternate;
+        }
+        @keyframes floatingDrift {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-25px) rotate(15deg); }
+        }
+
+        /* ==========================================================
+           ANIMATIONS & TRANSITIONS
            ========================================================== */
         @keyframes zoomFadeIn {
-            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            from { opacity: 0; transform: scale(0.93) translateY(15px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
-        @keyframes welcomeCardPop {
-            0% { opacity: 0; transform: scale(0.7); filter: blur(10px); }
-            70% { transform: scale(1.05); filter: blur(0); }
-            100% { opacity: 1; transform: scale(1); }
+        @keyframes subtleGlowPulse {
+            from { box-shadow: 0 12px 40px rgba(139,92,26,0.1); }
+            to { box-shadow: 0 12px 40px rgba(139,92,26,0.22); }
         }
-        @keyframes subtleGlow {
-            from { box-shadow: 0 8px 32px rgba(139,92,26,0.1); }
-            to { box-shadow: 0 8px 32px rgba(139,92,26,0.25); }
+        @keyframes spinIcon {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        @keyframes tableRowEntrance {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes rowSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* ==========================================================
-           2. AUTHENTICATION MODULE SCREEN VIEWPORT
+           LOGIN SCREEN PANELS
            ========================================================== */
         .auth-viewport {
             display: flex;
@@ -59,384 +74,216 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            position: relative;
+            transition: opacity 0.4s ease-out;
         }
-
         .auth-card {
             background: var(--white);
-            padding: 40px 30px;
-            border-radius: 24px;
-            border: 3px solid var(--chocolate-main);
+            padding: 45px 35px;
+            border-radius: 32px;
+            border: 4px solid var(--chocolate-main);
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
             text-align: center;
-            box-shadow: 0 12px 40px rgba(139,92,26,0.15);
+            box-shadow: 0 20px 50px rgba(139,92,26,0.15);
             animation: zoomFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .auth-card i.lock-icon {
-            font-size: 3rem;
-            color: var(--chocolate-main);
-            margin-bottom: 15px;
-        }
-
-        .auth-card h2 {
-            font-family: 'Fredoka One', sans-serif;
-            color: var(--chocolate-main);
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
-        }
-
-        .auth-card p {
-            color: #7a6252;
-            margin: 0 0 25px 0;
-            font-weight: 600;
-        }
-
-        .input-group {
             position: relative;
-            margin-bottom: 20px;
+            overflow: hidden;
         }
-
+        .auth-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+            background: linear-gradient(90deg, #8b5c1a, #ffb7b2, #5c3a21);
+        }
+        .auth-card i.lock-icon {
+            font-size: 3.5rem; color: var(--chocolate-main); margin-bottom: 20px;
+        }
+        .auth-card h2 {
+            font-family: 'Fredoka One', sans-serif; color: var(--chocolate-main);
+            margin: 0 0 10px 0; font-size: 2rem;
+        }
+        .auth-card p { color: #7a6252; margin: 0 0 30px 0; font-weight: 700; }
+        
+        .input-group { position: relative; margin-bottom: 22px; }
         .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #a69285;
-            transition: color 0.2s;
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            color: #a69285; font-size: 1.1rem; transition: color 0.2s;
         }
-
         .input-group input {
-            width: 100%;
-            padding: 14px 15px 14px 45px;
-            border: 2px solid rgba(139,92,26,0.2);
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            background-color: #fffdfb;
-            color: var(--chocolate-dark);
-            transition: all 0.2s ease-in-out;
+            width: 100%; padding: 15px 15px 15px 48px;
+            border: 2px solid rgba(139,92,26,0.25); border-radius: 16px;
+            box-sizing: border-box; font-size: 1rem; font-family: 'Quicksand', sans-serif;
+            font-weight: 700; background-color: #fffdfb; color: var(--chocolate-dark);
+            transition: all 0.25s ease-in-out;
         }
-
         .input-group input:focus {
-            outline: none;
-            border-color: var(--chocolate-main);
-            box-shadow: 0 0 0 4px rgba(139,92,26,0.1);
+            outline: none; border-color: var(--chocolate-main);
+            box-shadow: 0 0 0 4px rgba(139,92,26,0.12);
         }
-
-        .input-group input:focus + i {
-            color: var(--chocolate-main);
-        }
-
+        .input-group input:focus + i { color: var(--chocolate-main); }
+        
         .login-btn {
-            width: 100%;
-            background-color: var(--chocolate-main);
-            color: var(--white);
-            border: none;
-            padding: 14px;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-family: 'Quicksand', sans-serif;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 12px rgba(139,92,26,0.2);
+            width: 100%; background-color: var(--chocolate-main); color: var(--white);
+            border: none; padding: 16px; font-weight: 700; border-radius: 16px;
+            cursor: pointer; font-size: 1.15rem; font-family: 'Quicksand', sans-serif;
+            transition: all 0.2s ease-in-out; box-shadow: 0 6px 16px rgba(139,92,26,0.25);
         }
-
-        .login-btn:hover {
-            background-color: var(--chocolate-dark);
-            transform: translateY(-1px);
-        }
+        .login-btn:hover { background-color: var(--chocolate-dark); transform: translateY(-2px); }
 
         /* ==========================================================
-           3. CINEMATIC INTERMEDIARY SPLASH WELCOME OVERLAY
+           WARM WELCOME FILM TRANSITION OVERLAY
            ========================================================== */
         .welcome-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--cream-bg);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
+            background-color: var(--cream-bg); z-index: 9999;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
         }
-
-        /* The Profile picture initial center state animation layout */
         .welcome-avatar-wrapper {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 6px solid var(--chocolate-main);
-            background: var(--white);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 32px rgba(139,92,26,0.15);
-            animation: welcomeCardPop 0.60s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transition: all 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+            width: 240px; height: 240px; /* INCREASED SIZE */
+            border-radius: 50%; border: 8px solid var(--chocolate-main);
+            background: var(--white); overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 20px 45px rgba(139,92,26,0.2);
+            transition: all 0.9s cubic-bezier(0.76, 0, 0.24, 1);
         }
-
-        .welcome-avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .welcome-avatar-wrapper i {
-            font-size: 5rem;
-            color: var(--chocolate-main);
-        }
-
+        .welcome-avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
         .welcome-text {
-            margin-top: 25px;
-            text-align: center;
-            transition: all 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+            margin-top: 35px; text-align: center;
+            transition: opacity 0.4s cubic-bezier(0.76, 0, 0.24, 1);
         }
-
         .welcome-text h2 {
-            font-family: 'Fredoka One', sans-serif;
-            color: var(--chocolate-main);
-            font-size: 2.2rem;
-            margin: 0 0 5px 0;
+            font-family: 'Fredoka One', sans-serif; color: var(--chocolate-main);
+            font-size: 3.2rem; margin: 0 0 10px 0; /* INCREASED SIZE */
         }
-
-        .welcome-text p {
-            font-size: 1.2rem;
-            color: #7a6252;
-            margin: 0;
-            font-weight: 700;
-        }
+        .welcome-text p { font-size: 1.5rem; color: #7a6252; margin: 0; font-weight: 700; }
 
         /* ==========================================================
-           4. SYSTEM MASTER WORKSPACE DASHBOARD CONTENT
+           MAIN CONTAINER MASTER DASHBOARD STYLES
            ========================================================== */
         .dashboard-viewport {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 120px 25px 40px 25px; /* Pushed down to clear the animated banner header context */
-            box-sizing: border-box;
-            opacity: 0;
-            display: none;
-            transition: opacity 0.6s ease-out;
+            max-width: 1300px; margin: 0 auto;
+            padding: 130px 25px 50px 25px;
+            box-sizing: border-box; opacity: 0; display: none;
+            transition: opacity 0.6s ease-out; z-index: 5; position: relative;
         }
-
-        /* Dynamic Header banner containing the shifted profile data */
         .dynamic-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 90px;
-            background: rgba(255, 252, 247, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 2px solid rgba(139,92,26,0.15);
-            z-index: 998;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 35px;
-            box-sizing: border-box;
-            opacity: 0;
+            position: fixed; top: 0; left: 0; right: 0; height: 100px;
+            background: rgba(255, 252, 247, 0.92); backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--chocolate-main); z-index: 998;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px; box-sizing: border-box; opacity: 0;
             transition: opacity 0.5s ease-out;
         }
-
-        .profile-brand-cluster {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .refresh-btn {
-            background-color: var(--chocolate-main);
-            color: var(--white);
-            border: none;
-            padding: 12px 22px;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-family: 'Quicksand', sans-serif;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(139,92,26,0.1);
-        }
-
-        .refresh-btn:hover {
-            background-color: var(--chocolate-dark);
-            transform: translateY(-1px);
-        }
-
-        /* Modern Data Grid Display Tables */
+        .profile-brand-cluster { display: flex; align-items: center; gap: 16px; }
+        
         .table-wrapper {
-            background: var(--white);
-            border-radius: 24px;
-            border: 3px solid var(--chocolate-main);
-            overflow: hidden;
-            box-shadow: 0 12px 40px rgba(139,92,26,0.06);
-            animation: subtleGlow 2s ease-in-out alternate infinite;
+            background: var(--white); border-radius: 28px;
+            border: 4px solid var(--chocolate-main); overflow: hidden;
+            box-shadow: 0 15px 45px rgba(139,92,26,0.08);
+            animation: subtleGlowPulse 2.5s ease-in-out alternate infinite;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
+        table { width: 100%; border-collapse: collapse; text-align: left; }
         th {
-            background-color: var(--chocolate-main);
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.05rem;
-            padding: 18px 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            background-color: var(--chocolate-main); color: var(--white);
+            font-weight: 700; font-size: 1.05rem; padding: 20px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            font-family: 'Fredoka One', sans-serif; letter-spacing: 1px;
         }
-
-        td {
-            padding: 20px;
-            border-bottom: 1px solid rgba(139,92,26,0.1);
-            vertical-align: top;
-            font-size: 1rem;
-            color: var(--chocolate-dark);
-        }
-
-        tr {
-            opacity: 0; /* Animated dynamically line-by-line via loop indices */
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
+        td { padding: 22px 20px; border-bottom: 1px solid rgba(139,92,26,0.1); vertical-align: top; }
+        
         .order-id-tag {
-            background: #f4eae1;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-weight: 700;
-            color: var(--chocolate-dark);
-            border: 1px solid rgba(139,92,26,0.15);
+            background: #f4eae1; padding: 6px 12px; border-radius: 10px;
+            font-weight: 700; color: var(--chocolate-dark); border: 2px solid rgba(139,92,26,0.15);
         }
-
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
         }
         .status-preparing { background-color: #ffe6cc; color: #b35900; }
         .status-delivery { background-color: #d1e7dd; color: #0f5132; }
 
-        .item-badge-list {
-            margin: 0; padding: 0; list-style-type: none;
-        }
+        .item-badge-list { margin: 0; padding: 0; list-style-type: none; }
         .item-badge-list li {
-            background: var(--cream-bg);
-            border: 1px solid rgba(139,92,26,0.1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
+            background: var(--cream-bg); border: 1px solid rgba(139,92,26,0.1);
+            padding: 6px 12px; border-radius: 8px; margin-bottom: 6px; font-size: 0.9rem; font-weight: 700;
         }
+        
+        .rotating-icon { animation: spinIcon 0.8s linear infinite; }
     </style>
 </head>
 <body>
 
-    <!-- ==========================================================
-       VIEWPORT 1: LOGIN APPLICATION PANEL
-       ========================================================== -->
+    <div class="topping-particle" style="top: 15%; left: 8%; font-size: 3rem; animation-delay: 0s;">☁️</div> <div class="topping-particle" style="top: 45%; left: 4%; font-size: 2.5rem; animation-delay: 1s;">🫘</div> <div class="topping-particle" style="top: 75%; left: 9%; font-size: 2.8rem; animation-delay: 0.5s;">🍪</div> <div class="topping-particle" style="top: 20%; right: 7%; font-size: 2.6rem; animation-delay: 1.5s;">🫘</div>
+    <div class="topping-particle" style="top: 60%; right: 5%; font-size: 3.2rem; animation-delay: 0.2s;">☁️</div>
+
     <div id="authViewport" class="auth-viewport">
         <div class="auth-card">
             <i class="fa-solid fa-cookie-bite lock-icon"></i>
-            <h2>Chocopuff Admin</h2>
-            <p>Access database records index parameters.</p>
+            <h2>Chocopuff Hub</h2>
+            <p>Administrative Database Portal</p>
             
             <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
                 <div class="input-group">
-                    <input type="text" id="usernameInput" placeholder="Username" required autocomplete="username">
-                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="usernameInput" placeholder="System Username" required autocomplete="username">
+                    <i class="fa-solid fa-user-shield"></i>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="passwordInput" placeholder="Password" required autocomplete="current-password">
-                    <i class="fa-solid fa-key"></i>
+                    <input type="password" id="passwordInput" placeholder="Secure Access Pin" required autocomplete="current-password">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
                 </div>
-                <button type="submit" class="login-btn">Secure Login</button>
+                <button type="submit" class="login-btn">Authenticate Console</button>
             </form>
         </div>
     </div>
 
-    <!-- ==========================================================
-       VIEWPORT 2: SPLASH SYSTEM TRANSITION OVERLAY
-       ========================================================== -->
     <div id="welcomeOverlay" class="welcome-overlay">
-        <div id="welcomeAvatar" class="welcome-avatar-wrapper">
-            <!-- Dynamic placeholder images will load safely here via JavaScript logic -->
-        </div>
-        <div id="welcomeText" class="welcome-text">
-            <!-- Intercepted dynamic welcome layout arrays append here -->
-        </div>
+        <div id="welcomeAvatar" class="welcome-avatar-wrapper"></div>
+        <div id="welcomeText" class="welcome-text"></div>
     </div>
 
-    <!-- ==========================================================
-       VIEWPORT 3: DYNAMIC BRAND BANNER HEADER
-       ========================================================== -->
     <div id="dynamicHeader" class="dynamic-header">
         <div id="headerBrandCluster" class="profile-brand-cluster">
-            <!-- Elements travel smoothly up into this context box automatically -->
-        </div>
-        <button class="refresh-btn" onclick="fetchOrderDatabase()"><i class="fa-solid fa-rotate"></i> Sync Live Data</button>
+            </div>
+        <button id="syncButton" class="refresh-btn" onclick="fetchOrderDatabase()">
+            <i id="syncIcon" class="fa-solid fa-rotate"></i> Sync Live Data
+        </button>
     </div>
 
-    <!-- ==========================================================
-       VIEWPORT 4: PRIMARY CONTROL WORKSPACE DATA GRID
-       ========================================================== -->
     <div id="dashboardViewport" class="dashboard-viewport">
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>ID Reference</th>
+                        <th>Reference</th>
                         <th>Profile Account</th>
-                        <th>Logistics Coordinates</th>
+                        <th>Delivery Coordinates</th>
                         <th>Manifest Request</th>
                         <th>Financial Settlement</th>
                         <th>System State</th>
                     </tr>
                 </thead>
                 <tbody id="orderTableBody">
-                    <!-- Iterated JSON data nodes inject recursively -->
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>
 
-    <!-- ==========================================================
-       CORE ANIMATION COMPILER SCRIPTS LAYER
-       ========================================================== -->
     <script>
-        // Adjust this string accurately to match your production Render backend URL domain completely
+        // Points safely to your active live server string configuration
         const CHOCOPUFF_SMS_API_BASE = "https://chocopuff-sms-backend.onrender.com"; 
         let activeSessionToken = "";
 
-        // Profile metadata configs
         const profiles = {
             TristanAmadeo: {
                 name: "Tristan Amadeo",
                 title: "CEO & Founder",
-                // Profile Avatar: Uses high-res visual placeholder (Or replace with your direct image link)
-                avatar: "Tristan.jpg"
+                avatar: "Tristan.jpg" // Local relative file structure referenced
             },
             JamesHilado: {
                 name: "James Hilado",
-                title: "COO",
+                title: "COO & Academic Director",
                 avatar: "James.jpg"
             }
         };
@@ -446,13 +293,12 @@
             const user = document.getElementById('usernameInput').value.trim();
             const pass = document.getElementById('passwordInput').value.trim();
 
-            // Profile matching gate
             if (user === "TristanAmadeo" && pass === "amadeotristanpetey8080") {
                 runCinematicTransition("TristanAmadeo", pass);
             } else if (user === "JamesHilado" && pass === "JamesHilado") {
                 runCinematicTransition("JamesHilado", pass);
             } else {
-                alert("Security Authorization Rejected: Invalid Admin credentials.");
+                alert("Security Credentials Rejected. Access Denied.");
             }
         }
 
@@ -460,82 +306,76 @@
             activeSessionToken = passToken;
             const profile = profiles[userKey];
 
-            // 1. Fade away the initial static login card container viewport cleanly
             const authViewport = document.getElementById('authViewport');
             authViewport.style.opacity = "0";
 
             setTimeout(() => {
                 authViewport.style.display = "none";
                 
-                // 2. Setup the Splash Welcome card components inside the screen center
                 const welcomeOverlay = document.getElementById('welcomeOverlay');
                 const welcomeAvatar = document.getElementById('welcomeAvatar');
                 const welcomeText = document.getElementById('welcomeText');
 
-                welcomeAvatar.innerHTML = `<img src="${profile.avatar}" alt="${profile.name}">`;
+                // Generate full-size creative layout markup elements
+                welcomeAvatar.innerHTML = `<img src="${profile.avatar}" alt="${profile.name}" onerror="this.src='https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/img/user2-160x160.jpg'">`;
                 welcomeText.innerHTML = `<h2>Warm Welcome, ${profile.name}!</h2><p>${profile.title}</p>`;
                 
                 welcomeOverlay.style.display = "flex";
 
-                // 3. TRIGGER CINEMATIC MORPH: Shift profile elements up into the top-left banner layout corner smoothly
+                // Morphing step 1: Fade text away gracefully *before* avatar travels
                 setTimeout(() => {
-                    // Smoothly animate the sizing scales and styles down to absolute dimensions
-                    welcomeAvatar.style.width = "50px";
-                    welcomeAvatar.style.height = "50px";
-                    welcomeAvatar.style.borderWidth = "2px";
-                    welcomeAvatar.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
-                    
-                    // Transform font layout structures into an elegant horizontal header look
-                    welcomeText.style.textAlign = "left";
-                    welcomeText.innerHTML = `
-                        <h4 style="margin:0; font-family:'Fredoka One',sans-serif; font-size:1.1rem; color:var(--chocolate-main);">${profile.name}</h4>
-                        <p style="margin:0; font-size:0.8rem; color:#a69285; font-weight:700;">${profile.title}</p>
-                    `;
+                    welcomeText.style.opacity = "0";
 
-                    // Reposition coordinates over the backdrop to line up seamlessly over the hidden dynamic tracking banner
-                    welcomeAvatar.style.transform = `translate(calc(-50vw + 60px), calc(-50vh + 45px))`;
-                    welcomeText.style.transform = `translate(calc(-50vw + 245px), calc(-50vh + 45px))`;
-                    
-                    // Fade standard welcome screen background out to match the dynamic tracking banner structure
-                    welcomeOverlay.style.transition = "background-color 0.85s ease";
-                    welcomeOverlay.style.backgroundColor = "rgba(255, 252, 247, 0)";
-
-                    // 4. Reveal structural content grid and background banner concurrently
+                    // Morphing step 2: Glide ONLY the avatar smoothly to top-left corner
                     setTimeout(() => {
-                        welcomeOverlay.style.display = "none"; // Clean structural footprint
-                        
-                        // Append elements cleanly directly inside permanent brand container tree
-                        const brandCluster = document.getElementById('headerBrandCluster');
-                        brandCluster.appendChild(welcomeAvatar);
-                        brandCluster.appendChild(welcomeText);
-                        
-                        // Reset dynamic style offsets instantly inside the document space flow
-                        welcomeAvatar.style.transform = "none";
-                        welcomeText.style.transform = "none";
+                        welcomeAvatar.style.width = "54px";
+                        welcomeAvatar.style.height = "54px";
+                        welcomeAvatar.style.borderWidth = "3px";
+                        welcomeAvatar.style.transform = `translate(calc(-50vw + 70px), calc(-50vh + 50px))`;
+                        welcomeOverlay.style.transition = "background-color 0.85s ease";
+                        welcomeOverlay.style.backgroundColor = "rgba(255, 252, 247, 0)";
 
-                        // Animate system interfaces smoothly up to 100% visibility parameters
-                        const dynamicHeader = document.getElementById('dynamicHeader');
-                        const dashboardViewport = document.getElementById('dashboardViewport');
-                        
-                        dynamicHeader.style.display = "flex";
-                        dashboardViewport.style.display = "block";
-                        
-                        // Trigger CSS transitions
+                        // Morphing step 3: Clean up and display workspace grid table view
                         setTimeout(() => {
-                            dynamicHeader.style.opacity = "1";
-                            dashboardViewport.style.opacity = "1";
-                            fetchOrderDatabase(); // Populate grid view data records async
-                        }, 50);
+                            welcomeOverlay.style.display = "none";
+                            
+                            const brandCluster = document.getElementById('headerBrandCluster');
+                            brandCluster.appendChild(welcomeAvatar);
+                            
+                            // Re-append the layout details clean next to the avatar
+                            const brandText = document.createElement('div');
+                            brandText.innerHTML = `
+                                <h4 style="margin:0; font-family:'Fredoka One',sans-serif; font-size:1.15rem; color:var(--chocolate-main);">${profile.name}</h4>
+                                <p style="margin:0; font-size:0.8rem; color:#a69285; font-weight:700;">${profile.title}</p>
+                            `;
+                            brandCluster.appendChild(brandText);
+                            
+                            welcomeAvatar.style.transform = "none";
 
-                    }, 850); // Matches the vector translation transition timelines
-                }, 2200); // Amount of time the user is presented with the central splash greeting card
+                            const dynamicHeader = document.getElementById('dynamicHeader');
+                            const dashboardViewport = document.getElementById('dashboardViewport');
+                            
+                            dynamicHeader.style.display = "flex";
+                            dashboardViewport.style.display = "block";
+                            
+                            setTimeout(() => {
+                                dynamicHeader.style.opacity = "1";
+                                dashboardViewport.style.opacity = "1";
+                                fetchOrderDatabase(); 
+                            }, 50);
 
-            }, 500); // Matches the login box initial fade-out delay
+                        }, 850); 
+                    }, 400);
+                }, 2000); 
+            }, 400);
         }
 
         function fetchOrderDatabase() {
+            const syncIcon = document.getElementById('syncIcon');
             const tbody = document.getElementById('orderTableBody');
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:40px;">📂 Syncing live cloud transactions data map...</td></tr>`;
+            
+            // Activate rotational spin animation on reload click
+            if (syncIcon) syncIcon.classList.add('rotating-icon');
 
             fetch(`${CHOCOPUFF_SMS_API_BASE}/api/admin/orders`, {
                 method: 'GET',
@@ -545,22 +385,22 @@
                 }
             })
             .then(res => {
-                if (!res.ok) throw new Error("Unauthorized data stream token or network link drop.");
+                if (!res.ok) throw new Error("Server data map sync failure.");
                 return res.json();
             })
             .then(data => {
                 tbody.innerHTML = "";
 
                 if (!data.orders || data.orders.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:40px;">No operational storefront records found in system memory.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#a69285; font-style:italic; padding:40px;">No custom storefront transactions recorded.</td></tr>`;
                     return;
                 }
 
                 data.orders.forEach((order, index) => {
-                    let itemsHtml = '<ul style="margin:0; padding-left:15px; font-weight:700;">';
+                    let itemsHtml = '<ul class="item-badge-list">';
                     if (Array.isArray(order.items)) {
                         order.items.forEach(item => {
-                            itemsHtml += `<li style="margin-bottom:4px;">🍫 ${item.title || item.name} <span style="color:#a69285; font-size:0.85rem;">(Qty: ${item.quantity})</span></li>`;
+                            itemsHtml += `<li>🍫 ${item.title || item.name} <span style="color:var(--chocolate-main);">x${item.quantity}</span></li>`;
                         });
                     }
                     itemsHtml += '</ul>';
@@ -568,34 +408,40 @@
                     const formattedTotal = order.total ? `₱${parseFloat(order.total).toFixed(2)}` : '₱0.00';
                     const statusClass = order.status === 'preparing' ? 'status-preparing' : 'status-delivery';
                     const statusText = order.status === 'preparing' ? 'Preparing' : 'Out For Delivery';
-                    const iconText = order.status === 'preparing' ? '<i class="fa-solid fa-fire-burner"></i>' : '<i class="fa-solid fa-motorcycle"></i>';
+                    const statusIcon = order.status === 'preparing' ? '<i class="fa-solid fa-fire-burner"></i>' : '<i class="fa-solid fa-motorcycle"></i>';
 
                     const row = document.createElement('tr');
-                    // Inject an elegant staggered layout line-by-line cascade delay 
-                    row.style.animation = `tableRowEntrance 0.4s cubic-bezier(0.23, 1, 0.32, 1) ${index * 0.06}s forwards`;
+                    row.style.animation = `rowSlideUp 0.4s ease-out ${index * 0.05}s forwards`;
                     
                     row.innerHTML = `
-                        <td><span class="order-id-tag">${order.id}</span></td>
+                        <td><span class="order-id-tag">#${order.id}</span></td>
                         <td>
                             <strong style="font-size:1.05rem;">${order.name}</strong><br>
-                            <span style="color:#a69285; font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-phone" style="font-size:0.75rem; margin-right:3px;"></i> ${order.phone}</span>
+                            <span style="color:#a69285; font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-phone"></i> ${order.phone}</span>
                         </td>
                         <td style="font-weight:600; font-size:0.95rem; line-height:1.4;">
                             ${order.address}<br>
-                            <span style="color:#a69285; font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-location-dot" style="font-size:0.75rem; margin-right:3px;"></i> ${order.city || ''} ${order.zip || ''}</span>
+                            <span style="color:#a69285; font-size:0.85rem;">${order.city || ''} ${order.zip || ''}</span>
                         </td>
                         <td>${itemsHtml}</td>
                         <td>
                             <strong style="color:var(--chocolate-main); font-size:1.1rem;">${formattedTotal}</strong><br>
-                            <span style="font-size:0.8rem; color:#a69285; font-weight:700; text-transform:uppercase;"><i class="fa-solid fa-credit-card" style="font-size:0.75rem;"></i> ${order.paymentMethod || 'COD'}</span>
+                            <span style="font-size:0.8rem; color:#a69285; font-weight:700; text-transform:uppercase;"><i class="fa-solid fa-wallet"></i> ${order.paymentMethod || 'COD'}</span>
                         </td>
-                        <td><span class="status-badge ${statusClass}">${iconText} ${statusText}</span></td>
+                        <td><span class="status-badge ${statusClass}">${statusIcon} ${statusText}</span></td>
                     `;
                     tbody.appendChild(row);
                 });
             })
             .catch(err => {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#cc3333; font-style:italic; font-weight:700; padding:40px;">❌ Error processing fetch layout hook: ${err.message}</td></tr>`;
+                console.error(err);
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#cc3333; font-weight:700; padding:40px;">❌ System Sync Offline. Ensure your Render Backend instance is active.</td></tr>`;
+            })
+            .finally(() => {
+                // Remove spin animation after process resolution
+                if (syncIcon) {
+                    setTimeout(() => { syncIcon.classList.remove('rotating-icon'); }, 600);
+                }
             });
         }
     </script>
