@@ -801,18 +801,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
 
                     <p style="color: #a69285; font-size: 0.85rem; margin: 0; font-style: italic; font-weight: 600;">
-                        This verification modal closes automatically in 5 seconds...
+                        This verification modal closes automatically in 10 seconds...
                     </p>
                 </div>
             `;
 
             document.body.appendChild(backdrop);
 
-            // Automatically dissolve modal components cleanly after 5000 milliseconds
+            // Automatically dissolve modal components cleanly after 10000 milliseconds
             setTimeout(() => {
                 backdrop.remove();
                 styleNode.remove();
-            }, 5000);
+            }, 10000);
         })
         .catch(err => {
             console.warn('Could not reach the SMS tracking backend (is it running?):', err.message);
